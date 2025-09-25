@@ -53,7 +53,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             Console.WriteLine("=== Thí sinh khối B ===");
             base.InThongTin();
             Diem.InDiem();
-            Console.WriteLine($"Tổng điểm khối A:{TongDiem()}");
+            Console.WriteLine($"Tổng điểm khối B: {TongDiem()}");
         }
     }
 }
