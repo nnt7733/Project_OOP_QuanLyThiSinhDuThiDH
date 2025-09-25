@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
 {
     public abstract class ThongTinThiSinh
@@ -17,10 +16,8 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
         public string KhuVuc { get; set; }
         public int DoiTuongUuTien { get; set; }
         public string HoiDongThi { get; set; }
-        public List<NguyenVong> NguyenVongs { get; set; }
         public ThongTinThiSinh()
         {
-            NguyenVongs = new List<NguyenVong>();
         }
         public ThongTinThiSinh(string soBD,string hoTen,DateTime ngaySinh,string danToc,string gioiTinh,string noiSinh,
             string diaChi, string soCanCuoc, string soDienThoai,string email,string khuVuc,int doiTuongUuTien,
@@ -39,7 +36,6 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             KhuVuc = khuVuc;
             DoiTuongUuTien = doiTuongUuTien;
             HoiDongThi= hoiDongThi;
-            NguyenVongs = new List<NguyenVong>();
         }
         public virtual void NhapThongTin()
         {
@@ -89,10 +85,6 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             Console.Write("Nhập hội đồng thi: ");
             HoiDongThi = Console.ReadLine();
         }
-        public void ThemNguyenVong(NguyenVong nv)
-        {
-            NguyenVongs.Add(nv);
-        }
         public virtual void InThongTin()
         {
             Console.WriteLine("====================================");
@@ -112,21 +104,6 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             Console.WriteLine($"Đối tượng UT    : {DoiTuongUuTien}");
             Console.WriteLine($"Hội đồng thi    : {HoiDongThi}");
             Console.WriteLine("====================================");
-        }
-        public void InNguyenVong()
-        {
-            Console.WriteLine("=== Danh sách nguyện vọng ===");
-            if (NguyenVongs.Count == 0)
-            {
-                Console.WriteLine("Chưa có nguyện vọng nào.");
-            }
-            else
-            {
-                foreach (var nv in NguyenVongs)
-                {
-                    nv.InNguyenVong();
-                }
-            }
         }
     }
 }

@@ -20,7 +20,6 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             foreach (var ts in danhSachThiSinh)
             {
                 ts.InThongTin();
-                ts.InNguyenVong();
                 Console.WriteLine();
             }
         }
