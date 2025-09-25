@@ -48,13 +48,6 @@
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.NguyenVong" Collapsed="true">
-    <Position X="8.5" Y="1" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAACAAAAAAIAAAAAAAAAAACAIABAAAAAAAAAAAAgAA=</HashCode>
-      <FileName>(TT)NguyenVong.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.QuanLyThiSinh" Collapsed="true">
     <Position X="10.25" Y="1" Width="1.5" />
     <TypeIdentifier>

@@ -48,7 +48,6 @@
     <Compile Include="%28Diem%29DiemThiKHXH.cs" />
     <Compile Include="%28TS%29IThiKhoi.cs" />
     <Compile Include="%28Diem%29IDiemThi.cs" />
-    <Compile Include="%28TT%29NguyenVong.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="%28TS%29ThiSinhKhoiA.cs" />
