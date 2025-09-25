@@ -9,8 +9,8 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
     {
         static void Main()
         {
-            Console.OutputEncoding = Encoding.UTF8; 
-            Console.InputEncoding=Encoding.UTF8;
+            Console.OutputEncoding = Encoding.UTF8;
+            Console.InputEncoding = Encoding.UTF8;
             QuanLyThiSinh ql = new QuanLyThiSinh();
             ThiSinhKhoiA tsA = new ThiSinhKhoiA();
             tsA.Nhap();
@@ -23,9 +23,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             ql.InDanhSach();
             ql.ThongKeTheoKhoi();
             ql.TimThuKhoa();
-            //con mèo con chó
 
-            ql.InDanhSach();
         }
     }
 }

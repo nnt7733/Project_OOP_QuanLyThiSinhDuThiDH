@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
 {
-    public class ThiSinhKhoiB: ThongTinThiSinh
+    public class ThiSinhKhoiB : ThongTinThiSinh, IThiKhoi
     {
         public DiemThiKHTN Diem { get; set; }
         public ThiSinhKhoiB()

@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
 {
-    public class ThiSinhKhoiA : ThongTinThiSinh
+    public class ThiSinhKhoiA : ThongTinThiSinh, IThiKhoi
     {
         public DiemThiKHTN Diem { get; set; }
         public ThiSinhKhoiA()
@@ -11,7 +11,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
         public void Nhap()
         {
             Console.WriteLine("=== Nhập thông tin thí sinh khối A ===");
-            base.NhapThongTin();  
+            base.NhapThongTin();
             Diem.NhapDiem();
         }
         public double TinhDiem()
@@ -40,8 +40,8 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
         }
         public double TinhDiemUuTien()
         {
-            if(base.DoiTuongUuTien==1) { return 2; }
-            if(base.DoiTuongUuTien==2) { return 1; }
+            if (base.DoiTuongUuTien == 1) { return 2; }
+            if (base.DoiTuongUuTien == 2) { return 1; }
             else { return 0; }
         }
         public double TongDiem()
@@ -53,7 +53,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             Console.WriteLine("=== Thí sinh khối A ===");
             base.InThongTin();
             Diem.InDiem();
-            Console.WriteLine($"Tổng điểm khối A:{ TongDiem()}");
+            Console.WriteLine($"Tổng điểm khối A:{TongDiem()}");
         }
     }
 }
