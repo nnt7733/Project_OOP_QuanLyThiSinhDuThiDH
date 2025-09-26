@@ -9,6 +9,7 @@
     <RootNamespace>Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học</RootNamespace>
     <AssemblyName>Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <LangVersion>8.0</LangVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
