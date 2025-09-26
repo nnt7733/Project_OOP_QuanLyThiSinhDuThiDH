@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using ClosedXML.Excel;
 namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
 {
     public class QuanLyThiSinh
@@ -121,6 +123,124 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             }
 
             return danhSachThiSinh.Where(ts => ts.HoTen.IndexOf(hoTen, StringComparison.OrdinalIgnoreCase) >= 0);
+        }
+
+        public void LuuVaoExcel(string filePath)
+        {
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                Console.WriteLine("Đường dẫn tệp không hợp lệ.");
+                return;
+            }
+
+            try
+            {
+                var directory = Path.GetDirectoryName(filePath);
+                if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
+
+                using (var workbook = new XLWorkbook())
+                {
+                    var worksheet = workbook.Worksheets.Add("DanhSach");
+                    var headers = new[]
+                    {
+                        "Khoi", "SoBD", "HoTen", "NgaySinh", "DanToc", "GioiTinh", "NoiSinh", "DiaChi",
+                        "SoCanCuoc", "SoDienThoai", "Email", "KhuVuc", "DoiTuongUuTien", "HoiDongThi",
+                        "Toan", "Van", "Anh", "Ly", "Hoa", "Sinh", "Su", "Dia", "GDCD"
+                    };
+
+                    for (var i = 0; i < headers.Length; i++)
+                    {
+                        worksheet.Cell(1, i + 1).Value = headers[i];
+                    }
+
+                    for (var index = 0; index < danhSachThiSinh.Count; index++)
+                    {
+                        var ts = danhSachThiSinh[index];
+                        var row = index + 2;
+
+                        worksheet.Cell(row, 1).Value = ts switch
+                        {
+                            ThiSinhKhoiA _ => "A",
+                            ThiSinhKhoiB _ => "B",
+                            ThiSinhKhoiC _ => "C",
+                            _ => string.Empty
+                        };
+
+                        worksheet.Cell(row, 2).Value = ts.SoBD;
+                        worksheet.Cell(row, 3).Value = ts.HoTen;
+                        worksheet.Cell(row, 4).Value = ts.NgaySinh.ToString("dd/MM/yyyy");
+                        worksheet.Cell(row, 5).Value = ts.DanToc;
+                        worksheet.Cell(row, 6).Value = ts.GioiTinh;
+                        worksheet.Cell(row, 7).Value = ts.NoiSinh;
+                        worksheet.Cell(row, 8).Value = ts.DiaChi;
+                        worksheet.Cell(row, 9).Value = ts.SoCanCuoc;
+                        worksheet.Cell(row, 10).Value = ts.SoDienThoai;
+                        worksheet.Cell(row, 11).Value = ts.Email;
+                        worksheet.Cell(row, 12).Value = ts.KhuVuc;
+                        worksheet.Cell(row, 13).Value = ts.DoiTuongUuTien;
+                        worksheet.Cell(row, 14).Value = ts.HoiDongThi;
+
+                        double? toan = null;
+                        double? van = null;
+                        double? anh = null;
+                        double? ly = null;
+                        double? hoa = null;
+                        double? sinh = null;
+                        double? su = null;
+                        double? dia = null;
+                        double? gdcd = null;
+
+                        switch (ts)
+                        {
+                            case ThiSinhKhoiA khoiA:
+                                toan = khoiA.Diem.Toan;
+                                van = khoiA.Diem.Van;
+                                anh = khoiA.Diem.Anh;
+                                ly = khoiA.Diem.Ly;
+                                hoa = khoiA.Diem.Hoa;
+                                sinh = khoiA.Diem.Sinh;
+                                break;
+                            case ThiSinhKhoiB khoiB:
+                                toan = khoiB.Diem.Toan;
+                                van = khoiB.Diem.Van;
+                                anh = khoiB.Diem.Anh;
+                                hoa = khoiB.Diem.Hoa;
+                                sinh = khoiB.Diem.Sinh;
+                                break;
+                            case ThiSinhKhoiC khoiC:
+                                toan = khoiC.Diem.Toan;
+                                van = khoiC.Diem.Van;
+                                anh = khoiC.Diem.Anh;
+                                su = khoiC.Diem.Su;
+                                dia = khoiC.Diem.Dia;
+                                gdcd = khoiC.Diem.GDCD;
+                                break;
+                        }
+
+                        worksheet.Cell(row, 15).Value = toan ?? string.Empty;
+                        worksheet.Cell(row, 16).Value = van ?? string.Empty;
+                        worksheet.Cell(row, 17).Value = anh ?? string.Empty;
+                        worksheet.Cell(row, 18).Value = ly ?? string.Empty;
+                        worksheet.Cell(row, 19).Value = hoa ?? string.Empty;
+                        worksheet.Cell(row, 20).Value = sinh ?? string.Empty;
+                        worksheet.Cell(row, 21).Value = su ?? string.Empty;
+                        worksheet.Cell(row, 22).Value = dia ?? string.Empty;
+                        worksheet.Cell(row, 23).Value = gdcd ?? string.Empty;
+                    }
+
+                    worksheet.Columns().AdjustToContents();
+                    workbook.SaveAs(filePath);
+                }
+
+                Console.WriteLine($"Đã lưu danh sách thí sinh vào: {filePath}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi khi lưu file Excel: {ex.Message}");
+            }
         }
     }
 }
