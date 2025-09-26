@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
+
 namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
 {
     public abstract class ThongTinThiSinh
@@ -12,17 +13,30 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
         public string GioiTinh { get; set; }
         public string NoiSinh { get; set; }
         public string DiaChi { get; set; }
-        public string SoCanCuoc { get; set; } 
+        public string SoCanCuoc { get; set; }
         public string SoDienThoai { get; set; }
         public string Email { get; set; }
         public string KhuVuc { get; set; }
         public int DoiTuongUuTien { get; set; }
         public string HoiDongThi { get; set; }
-        public ThongTinThiSinh()
+
+        protected ThongTinThiSinh()
         {
         }
-        public ThongTinThiSinh(string soBD,string hoTen,DateTime ngaySinh,string danToc,string gioiTinh,string noiSinh,
-            string diaChi, string soCanCuoc, string soDienThoai,string email,string khuVuc,int doiTuongUuTien,
+
+        protected ThongTinThiSinh(
+            string soBD,
+            string hoTen,
+            DateTime ngaySinh,
+            string danToc,
+            string gioiTinh,
+            string noiSinh,
+            string diaChi,
+            string soCanCuoc,
+            string soDienThoai,
+            string email,
+            string khuVuc,
+            int doiTuongUuTien,
             string hoiDongThi)
         {
             SoBD = soBD;
@@ -33,12 +47,13 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             NoiSinh = noiSinh;
             DiaChi = diaChi;
             SoCanCuoc = soCanCuoc;
-            SoDienThoai = soDienThoai; 
+            SoDienThoai = soDienThoai;
             Email = email;
             KhuVuc = khuVuc;
             DoiTuongUuTien = doiTuongUuTien;
-            HoiDongThi= hoiDongThi;
+            HoiDongThi = hoiDongThi;
         }
+
         public virtual void NhapThongTin()
         {
             SoBD = NhapChuoiKhongRong("Nhập số báo danh: ");
@@ -57,51 +72,59 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             DoiTuongUuTien = NhapDoiTuongUuTien();
             HoiDongThi = NhapChuoiKhongRong("Nhập hội đồng thi: ");
         }
+
         public virtual void InThongTin()
         {
             Console.WriteLine("====================================");
             Console.WriteLine("       THÔNG TIN THÍ SINH DỰ THI    ");
             Console.WriteLine("====================================");
-            Console.WriteLine($"Số báo danh     : {SoBD}");
-            Console.WriteLine($"Họ và tên       : {HoTen}");
-            Console.WriteLine($"Ngày sinh       : {NgaySinh:dd/MM/yyyy}");
-            Console.WriteLine($"Giới tính       : {GioiTinh}");
-            Console.WriteLine($"Dân tộc         : {DanToc}");
-            Console.WriteLine($"Nơi sinh        : {NoiSinh}");
-            Console.WriteLine($"Địa chỉ         : {DiaChi}");
-            Console.WriteLine($"Số căn cước     : {SoCanCuoc}");
-            Console.WriteLine($"Số điện thoại   : {SoDienThoai}");
-            Console.WriteLine($"Email           : {Email}");
-            Console.WriteLine($"Khu vực         : {KhuVuc}");
-            Console.WriteLine($"Đối tượng UT    : {DoiTuongUuTien}");
-            Console.WriteLine($"Hội đồng thi    : {HoiDongThi}");
+            Console.WriteLine("Số báo danh     : {0}", SoBD);
+            Console.WriteLine("Họ và tên       : {0}", HoTen);
+            Console.WriteLine("Ngày sinh       : {0:dd/MM/yyyy}", NgaySinh);
+            Console.WriteLine("Giới tính       : {0}", GioiTinh);
+            Console.WriteLine("Dân tộc         : {0}", DanToc);
+            Console.WriteLine("Nơi sinh        : {0}", NoiSinh);
+            Console.WriteLine("Địa chỉ         : {0}", DiaChi);
+            Console.WriteLine("Số căn cước     : {0}", SoCanCuoc);
+            Console.WriteLine("Số điện thoại   : {0}", SoDienThoai);
+            Console.WriteLine("Email           : {0}", Email);
+            Console.WriteLine("Khu vực         : {0}", KhuVuc);
+            Console.WriteLine("Đối tượng UT    : {0}", DoiTuongUuTien);
+            Console.WriteLine("Hội đồng thi    : {0}", HoiDongThi);
             Console.WriteLine("====================================");
         }
 
         protected double TinhDiemCongKhuVuc()
         {
-            return KhuVuc switch
+            switch (KhuVuc)
             {
-                "KV1" => 0.75,
-                "KV2" => 0.5,
-                "KV2-NT" => 0.25,
-                _ => 0
-            };
+                case "KV1":
+                    return 0.75;
+                case "KV2":
+                    return 0.5;
+                case "KV2-NT":
+                    return 0.25;
+                default:
+                    return 0;
+            }
         }
 
         protected double TinhDiemCongUuTien()
         {
-            return DoiTuongUuTien switch
+            switch (DoiTuongUuTien)
             {
-                1 => 2,
-                2 => 1,
-                _ => 0
-            };
+                case 1:
+                    return 2;
+                case 2:
+                    return 1;
+                default:
+                    return 0;
+            }
         }
 
         private static string NhapChuoiKhongRong(string thongDiep)
         {
-            string? ketQua;
+            string ketQua;
             do
             {
                 Console.Write(thongDiep);
@@ -115,9 +138,15 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
         {
             Console.Write("Nhập ngày sinh (dd/MM/yyyy): ");
             DateTime ngaySinh;
-            while (!DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", CultureInfo.InvariantCulture,
-                DateTimeStyles.None, out ngaySinh))
+            string giaTri;
+            while (true)
             {
+                giaTri = Console.ReadLine();
+                if (DateTime.TryParseExact(giaTri, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out ngaySinh))
+                {
+                    break;
+                }
+
                 Console.Write("Sai định dạng! Nhập lại (dd/MM/yyyy): ");
             }
 
@@ -126,8 +155,8 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
 
         private static string NhapGioiTinh()
         {
-            string? gioiTinh;
-            do
+            string gioiTinh;
+            while (true)
             {
                 Console.Write("Nhập giới tính (Nam/Nữ): ");
                 gioiTinh = Console.ReadLine();
@@ -137,60 +166,86 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                 }
 
                 gioiTinh = gioiTinh.Trim();
-            } while (!string.Equals(gioiTinh, "Nam", StringComparison.OrdinalIgnoreCase) &&
-                     !string.Equals(gioiTinh, "Nữ", StringComparison.OrdinalIgnoreCase));
-
-            return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(gioiTinh.ToLowerInvariant());
+                if (string.Equals(gioiTinh, "Nam", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(gioiTinh, "Nữ", StringComparison.OrdinalIgnoreCase))
+                {
+                    TextInfo textInfo = CultureInfo.CurrentCulture.TextInfo;
+                    return textInfo.ToTitleCase(gioiTinh.ToLowerInvariant());
+                }
+            }
         }
 
         private static string NhapSoDienThoai()
         {
-            string? soDienThoai;
-            do
+            string soDienThoai;
+            while (true)
             {
                 Console.Write("Nhập số điện thoại (10-11 số): ");
                 soDienThoai = Console.ReadLine();
-            } while (string.IsNullOrWhiteSpace(soDienThoai) || soDienThoai.Length < 10 || soDienThoai.Length > 11 ||
-                     !long.TryParse(soDienThoai, out _));
-
-            return soDienThoai;
+                long kiemTra;
+                if (!string.IsNullOrWhiteSpace(soDienThoai) &&
+                    soDienThoai.Length >= 10 &&
+                    soDienThoai.Length <= 11 &&
+                    long.TryParse(soDienThoai, out kiemTra))
+                {
+                    return soDienThoai;
+                }
+            }
         }
 
         private static string NhapEmail()
         {
-            string? email;
-            do
+            string email;
+            while (true)
             {
                 Console.Write("Nhập email: ");
                 email = Console.ReadLine();
-            } while (string.IsNullOrWhiteSpace(email) || !email.Contains("@") || !email.Contains("."));
-
-            return email.Trim();
+                if (!string.IsNullOrWhiteSpace(email) && email.Contains("@") && email.Contains("."))
+                {
+                    return email.Trim();
+                }
+            }
         }
 
         private static string NhapKhuVuc()
         {
-            var khuVucHopLe = new HashSet<string> { "KV1", "KV2", "KV2-NT", "KV3" };
-            string? khuVuc;
-            do
+            HashSet<string> khuVucHopLe = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+            {
+                "KV1",
+                "KV2",
+                "KV2-NT",
+                "KV3"
+            };
+
+            while (true)
             {
                 Console.Write("Nhập khu vực (KV1/KV2/KV2-NT/KV3): ");
-                khuVuc = Console.ReadLine()?.ToUpperInvariant();
-            } while (string.IsNullOrWhiteSpace(khuVuc) || !khuVucHopLe.Contains(khuVuc));
-
-            return khuVuc;
+                string khuVuc = Console.ReadLine();
+                if (!string.IsNullOrWhiteSpace(khuVuc))
+                {
+                    khuVuc = khuVuc.Trim().ToUpperInvariant();
+                    if (khuVucHopLe.Contains(khuVuc))
+                    {
+                        return khuVuc;
+                    }
+                }
+            }
         }
 
         private static int NhapDoiTuongUuTien()
         {
-            int doiTuong;
             Console.Write("Nhập đối tượng ưu tiên (0/1/2): ");
-            while (!int.TryParse(Console.ReadLine(), out doiTuong) || doiTuong < 0 || doiTuong > 2)
+            int doiTuong;
+            while (true)
             {
+                string giaTri = Console.ReadLine();
+                if (int.TryParse(giaTri, out doiTuong) && doiTuong >= 0 && doiTuong <= 2)
+                {
+                    return doiTuong;
+                }
+
                 Console.Write("Sai định dạng! Nhập lại đối tượng ưu tiên (0/1/2): ");
             }
-
-            return doiTuong;
         }
     }
 }
