@@ -11,13 +11,29 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             QuanLyThiSinh ql = new QuanLyThiSinh();
             ThiSinhKhoiA tsA = new ThiSinhKhoiA();
             tsA.Nhap();
-            ql.ThemThiSinh(tsA);
+            if (!ql.ThemThiSinh(tsA))
+            {
+                Console.WriteLine("Số báo danh đã tồn tại, không thể thêm thí sinh khối A.");
+            }
             ThiSinhKhoiC tsC = new ThiSinhKhoiC();
             tsC.Nhap();
-            ql.ThemThiSinh(tsC);
+            if (!ql.ThemThiSinh(tsC))
+            {
+                Console.WriteLine("Số báo danh đã tồn tại, không thể thêm thí sinh khối C.");
+            }
             ql.InDanhSach();
             ql.ThongKeTheoKhoi();
             ql.TimThuKhoa();
+
+            Console.Write("Nhập tên cần tìm kiếm: ");
+            string tuKhoa = Console.ReadLine();
+            var ketQua = ql.TimTheoHoTen(tuKhoa);
+            Console.WriteLine("===== KẾT QUẢ TÌM KIẾM =====");
+            foreach (var ts in ketQua)
+            {
+                ts.InThongTin();
+                Console.WriteLine();
+            }
 
         }
     }

@@ -18,32 +18,8 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
         {
             return Diem.Van + Diem.Su + Diem.Dia;
         }
-        public double TinhDiemVung()
-        {
-            double diem = TinhDiem();
-            if (base.KhuVuc == "KV1")
-            {
-                return (30 - diem) / 7.5 * 0.75;
-            }
-            else if (base.KhuVuc == "KV2")
-            {
-                return (30 - diem) / 7.5 * 0.5;
-            }
-            else if (base.KhuVuc == "KV2-NT")
-            {
-                return (30 - diem) / 7.5 * 0.25;
-            }
-            else
-            {
-                return 0;
-            }
-        }
-        public double TinhDiemUuTien()
-        {
-            if (base.DoiTuongUuTien == 1) { return 2; }
-            if (base.DoiTuongUuTien == 2) { return 1; }
-            else { return 0; }
-        }
+        public double TinhDiemVung() => TinhDiemCongKhuVuc();
+        public double TinhDiemUuTien() => TinhDiemCongUuTien();
         public double TongDiem()
         {
             return TinhDiem() + TinhDiemVung() + TinhDiemUuTien();
