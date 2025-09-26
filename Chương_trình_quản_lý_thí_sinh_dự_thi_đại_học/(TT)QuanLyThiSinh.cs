@@ -10,16 +10,34 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
         {
             danhSachThiSinh = new List<ThongTinThiSinh>();
         }
-        public void ThemThiSinh(ThongTinThiSinh ts)
+        public bool ThemThiSinh(ThongTinThiSinh ts)
         {
+            if (ts == null)
+            {
+                throw new ArgumentNullException(nameof(ts));
+            }
+
+            if (TimTheoSoBD(ts.SoBD) != null)
+            {
+                return false;
+            }
+
             danhSachThiSinh.Add(ts);
+            return true;
         }
         public void InDanhSach()
         {
             Console.WriteLine("===== DANH SÁCH THÍ SINH =====");
             foreach (var ts in danhSachThiSinh)
             {
-                ts.InThongTin();
+                if (ts is IThiKhoi thiKhoi)
+                {
+                    thiKhoi.In();
+                }
+                else
+                {
+                    ts.InThongTin();
+                }
                 Console.WriteLine();
             }
         }
@@ -93,6 +111,16 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             Console.WriteLine($"Tổng số thí sinh khối A: {soKhoiA}");
             Console.WriteLine($"Tổng số thí sinh khối B: {soKhoiB}");
             Console.WriteLine($"Tổng số thí sinh khối C: {soKhoiC}");
+        }
+
+        public IEnumerable<ThongTinThiSinh> TimTheoHoTen(string hoTen)
+        {
+            if (string.IsNullOrWhiteSpace(hoTen))
+            {
+                return Enumerable.Empty<ThongTinThiSinh>();
+            }
+
+            return danhSachThiSinh.Where(ts => ts.HoTen.IndexOf(hoTen, StringComparison.OrdinalIgnoreCase) >= 0);
         }
     }
 }

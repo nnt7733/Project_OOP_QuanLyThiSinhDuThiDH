@@ -9,12 +9,9 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
         public override void NhapDiem()
         {
             base.NhapDiem();
-            Console.Write("Nhập điểm Lý: ");
-            Ly = double.Parse(Console.ReadLine());
-            Console.Write("Nhập điểm Hóa: ");
-            Hoa = double.Parse(Console.ReadLine());
-            Console.Write("Nhập điểm Sinh: ");
-            Sinh = double.Parse(Console.ReadLine());
+            Ly = NhapDiemMon("Lý");
+            Hoa = NhapDiemMon("Hóa");
+            Sinh = NhapDiemMon("Sinh");
         }
         public override void InDiem()
         {

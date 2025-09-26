@@ -9,12 +9,9 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
         public override void NhapDiem()
         {
             base.NhapDiem();
-            Console.Write("Nhập điểm Sử: ");
-            Su = double.Parse(Console.ReadLine());
-            Console.Write("Nhập điểm Địa: ");
-            Dia = double.Parse(Console.ReadLine());
-            Console.Write("Nhập điểm GDCD: ");
-            GDCD = double.Parse(Console.ReadLine());
+            Su = NhapDiemMon("Sử");
+            Dia = NhapDiemMon("Địa");
+            GDCD = NhapDiemMon("GDCD");
         }
         public override void InDiem()
         {
