@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
 {
@@ -8,18 +9,33 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
         {
             Console.OutputEncoding = Encoding.UTF8;
             Console.InputEncoding = Encoding.UTF8;
+            const string dataDirectory = "Data";
+            const string dataFileName = "ThiSinh.xlsx";
+            string filePath = Path.Combine(dataDirectory, dataFileName);
+
+            Directory.CreateDirectory(dataDirectory);
+
             QuanLyThiSinh ql = new QuanLyThiSinh();
+            ql.TaiTuExcel(filePath);
             ThiSinhKhoiA tsA = new ThiSinhKhoiA();
             tsA.Nhap();
             if (!ql.ThemThiSinh(tsA))
             {
                 Console.WriteLine("Số báo danh đã tồn tại, không thể thêm thí sinh khối A.");
             }
+            else
+            {
+                ql.LuuVaoExcel(filePath);
+            }
             ThiSinhKhoiC tsC = new ThiSinhKhoiC();
             tsC.Nhap();
             if (!ql.ThemThiSinh(tsC))
             {
                 Console.WriteLine("Số báo danh đã tồn tại, không thể thêm thí sinh khối C.");
+            }
+            else
+            {
+                ql.LuuVaoExcel(filePath);
             }
             ql.InDanhSach();
             ql.ThongKeTheoKhoi();
@@ -34,6 +50,8 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                 ts.InThongTin();
                 Console.WriteLine();
             }
+
+            ql.LuuVaoExcel(filePath);
 
         }
     }

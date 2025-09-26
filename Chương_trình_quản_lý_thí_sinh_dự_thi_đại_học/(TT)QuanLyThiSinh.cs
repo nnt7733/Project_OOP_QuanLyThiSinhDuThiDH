@@ -381,6 +381,8 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                             Console.WriteLine($"Bỏ qua hàng {rowNumber} do lỗi: {ex.Message}");
                         }
                     }
+
+                    Console.WriteLine($"Đã tải {danhSachThiSinh.Count} thí sinh từ: {filePath}");
                 }
             }
             catch (Exception ex)
