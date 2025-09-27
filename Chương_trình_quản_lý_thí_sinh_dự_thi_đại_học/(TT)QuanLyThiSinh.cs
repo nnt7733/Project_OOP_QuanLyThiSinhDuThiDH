@@ -258,6 +258,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                                 toan = khoiB.Diem.Toan;
                                 van = khoiB.Diem.Van;
                                 anh = khoiB.Diem.Anh;
+                                ly = khoiB.Diem.Ly;
                                 hoa = khoiB.Diem.Hoa;
                                 sinh = khoiB.Diem.Sinh;
                                 break;
@@ -400,6 +401,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                                     thiSinhB.Diem.Toan = toan;
                                     thiSinhB.Diem.Van = van;
                                     thiSinhB.Diem.Anh = anh;
+                                    thiSinhB.Diem.Ly = ParseDiem(parts[17], "điểm Lý");
                                     thiSinhB.Diem.Hoa = ParseDiem(parts[18], "điểm Hóa");
                                     thiSinhB.Diem.Sinh = ParseDiem(parts[19], "điểm Sinh");
                                     thiSinh = thiSinhB;
