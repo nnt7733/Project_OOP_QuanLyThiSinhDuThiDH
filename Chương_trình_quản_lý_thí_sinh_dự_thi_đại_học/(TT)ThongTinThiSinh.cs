@@ -122,6 +122,34 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             }
         }
 
+        protected double TinhTongDiemUuTien(double tongDiemBaMon)
+        {
+            var diemUuTienCoBan = TinhDiemCongKhuVuc() + TinhDiemCongUuTien();
+            if (diemUuTienCoBan <= 0)
+            {
+                return 0;
+            }
+
+            if (tongDiemBaMon < 22.5)
+            {
+                return Math.Round(diemUuTienCoBan, 2, MidpointRounding.AwayFromZero);
+            }
+
+            var heSo = (30 - tongDiemBaMon) / 7.5;
+            if (heSo <= 0)
+            {
+                return 0;
+            }
+
+            if (heSo > 1)
+            {
+                heSo = 1;
+            }
+
+            var diemUuTien = diemUuTienCoBan * heSo;
+            return Math.Round(diemUuTien, 2, MidpointRounding.AwayFromZero);
+        }
+
         private static string NhapChuoiKhongRong(string thongDiep)
         {
             string ketQua;
