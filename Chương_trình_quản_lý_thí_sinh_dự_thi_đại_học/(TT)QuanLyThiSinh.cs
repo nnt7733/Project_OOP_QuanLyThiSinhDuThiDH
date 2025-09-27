@@ -91,6 +91,12 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                 return true;
             }
 
+            if (thiSinhHienTai is ThiSinhKhoiD thiSinhKhoiD && thongTinCapNhat is ThiSinhKhoiD capNhatKhoiD)
+            {
+                CapNhatDiemKhoiD(thiSinhKhoiD, capNhatKhoiD);
+                return true;
+            }
+
             return false;
         }
 
@@ -108,9 +114,11 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             ThiSinhKhoiA thuKhoaA = null;
             ThiSinhKhoiB thuKhoaB = null;
             ThiSinhKhoiC thuKhoaC = null;
+            ThiSinhKhoiD thuKhoaD = null;
             double diemCaoNhatA = double.MinValue;
             double diemCaoNhatB = double.MinValue;
             double diemCaoNhatC = double.MinValue;
+            double diemCaoNhatD = double.MinValue;
             foreach (var ts in danhSachThiSinh)
             {
                 if (ts is ThiSinhKhoiA khoiA)
@@ -140,6 +148,15 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                         thuKhoaC = khoiC;
                     }
                 }
+                if (ts is ThiSinhKhoiD khoiD)
+                {
+                    double tongDiem = khoiD.TongDiem();
+                    if (tongDiem > diemCaoNhatD)
+                    {
+                        diemCaoNhatD = tongDiem;
+                        thuKhoaD = khoiD;
+                    }
+                }
             }
             if (thuKhoaA == null) Console.WriteLine("Không có thủ khoa khối A");
             else
@@ -159,16 +176,24 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                 thuKhoaC.InThongTin();
                 Console.WriteLine($"Tổng điểm:{diemCaoNhatC}");
             }
+            if (thuKhoaD == null) Console.WriteLine("Không có thủ khoa khối D");
+            else
+            {
+                thuKhoaD.InThongTin();
+                Console.WriteLine($"Tổng điểm:{diemCaoNhatD}");
+            }
         }
         public void ThongKeTheoKhoi()
         {
             int soKhoiA = danhSachThiSinh.Count(ts => ts is ThiSinhKhoiA);
             int soKhoiB = danhSachThiSinh.Count(ts => ts is ThiSinhKhoiB);
             int soKhoiC = danhSachThiSinh.Count(ts => ts is ThiSinhKhoiC);
+            int soKhoiD = danhSachThiSinh.Count(ts => ts is ThiSinhKhoiD);
 
             Console.WriteLine($"Tổng số thí sinh khối A: {soKhoiA}");
             Console.WriteLine($"Tổng số thí sinh khối B: {soKhoiB}");
             Console.WriteLine($"Tổng số thí sinh khối C: {soKhoiC}");
+            Console.WriteLine($"Tổng số thí sinh khối D: {soKhoiD}");
         }
 
         public IEnumerable<ThongTinThiSinh> TimTheoHoTen(string hoTen)
@@ -217,6 +242,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                             ThiSinhKhoiA _ => "A",
                             ThiSinhKhoiB _ => "B",
                             ThiSinhKhoiC _ => "C",
+                            ThiSinhKhoiD _ => "D",
                             _ => string.Empty
                         };
 
@@ -269,6 +295,11 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                                 su = khoiC.Diem.Su;
                                 dia = khoiC.Diem.Dia;
                                 gdcd = khoiC.Diem.GDCD;
+                                break;
+                            case ThiSinhKhoiD khoiD:
+                                toan = khoiD.Diem.Toan;
+                                van = khoiD.Diem.Van;
+                                anh = khoiD.Diem.Anh;
                                 break;
                         }
 
@@ -416,6 +447,13 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                                     thiSinhC.Diem.GDCD = ParseDiem(parts[22], "điểm GDCD");
                                     thiSinh = thiSinhC;
                                     break;
+                                case "D":
+                                    var thiSinhD = new ThiSinhKhoiD();
+                                    thiSinhD.Diem.Toan = toan;
+                                    thiSinhD.Diem.Van = van;
+                                    thiSinhD.Diem.Anh = anh;
+                                    thiSinh = thiSinhD;
+                                    break;
                                 default:
                                     throw new FormatException($"Khối không hợp lệ: {khoi}");
                             }
@@ -506,6 +544,13 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             dich.Diem.Su = nguon.Diem.Su;
             dich.Diem.Dia = nguon.Diem.Dia;
             dich.Diem.GDCD = nguon.Diem.GDCD;
+        }
+
+        private static void CapNhatDiemKhoiD(ThiSinhKhoiD dich, ThiSinhKhoiD nguon)
+        {
+            dich.Diem.Toan = nguon.Diem.Toan;
+            dich.Diem.Van = nguon.Diem.Van;
+            dich.Diem.Anh = nguon.Diem.Anh;
         }
 
         private static double ParseDiem(string giaTri, string tenMon)
