@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
 {
-    public abstract class DiemThiBacBuoc:IDiemThi
+    public class DiemThiBacBuoc : IDiemThi
     {
         public double Toan { get; set; }
         public double Van { get; set; }

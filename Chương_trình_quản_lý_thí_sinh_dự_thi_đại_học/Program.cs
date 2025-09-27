@@ -39,27 +39,30 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                         ThemThiSinhKhoiC(ql, filePath);
                         break;
                     case "4":
-                        ql.InDanhSach();
+                        ThemThiSinhKhoiD(ql, filePath);
                         break;
                     case "5":
-                        ql.ThongKeTheoKhoi();
+                        ql.InDanhSach();
                         break;
                     case "6":
-                        ql.TimThuKhoa();
+                        ql.ThongKeTheoKhoi();
                         break;
                     case "7":
-                        TimKiemTheoHoTen(ql);
+                        ql.TimThuKhoa();
                         break;
                     case "8":
-                        ql.TaiTuTxt(filePath);
+                        TimKiemTheoHoTen(ql);
                         break;
                     case "9":
-                        ql.LuuVaoTxt(filePath);
+                        ql.TaiTuTxt(filePath);
                         break;
                     case "10":
-                        CapNhatThongTinThiSinh(ql, filePath);
+                        ql.LuuVaoTxt(filePath);
                         break;
                     case "11":
+                        CapNhatThongTinThiSinh(ql, filePath);
+                        break;
+                    case "12":
                         XoaThiSinh(ql, filePath);
                         break;
                     case "0":
@@ -80,14 +83,15 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             Console.WriteLine("1. Thêm thí sinh khối A");
             Console.WriteLine("2. Thêm thí sinh khối B");
             Console.WriteLine("3. Thêm thí sinh khối C");
-            Console.WriteLine("4. Hiển thị danh sách thí sinh");
-            Console.WriteLine("5. Thống kê số lượng theo khối");
-            Console.WriteLine("6. Tìm thủ khoa từng khối");
-            Console.WriteLine("7. Tìm kiếm thí sinh theo họ tên");
-            Console.WriteLine("8. Tải dữ liệu từ tệp");
-            Console.WriteLine("9. Lưu dữ liệu ra tệp");
-            Console.WriteLine("10. Cập nhật thông tin thí sinh");
-            Console.WriteLine("11. Xóa thí sinh");
+            Console.WriteLine("4. Thêm thí sinh khối D");
+            Console.WriteLine("5. Hiển thị danh sách thí sinh");
+            Console.WriteLine("6. Thống kê số lượng theo khối");
+            Console.WriteLine("7. Tìm thủ khoa từng khối");
+            Console.WriteLine("8. Tìm kiếm thí sinh theo họ tên");
+            Console.WriteLine("9. Tải dữ liệu từ tệp");
+            Console.WriteLine("10. Lưu dữ liệu ra tệp");
+            Console.WriteLine("11. Cập nhật thông tin thí sinh");
+            Console.WriteLine("12. Xóa thí sinh");
             Console.WriteLine("0. Thoát");
         }
 
@@ -106,6 +110,12 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
         private static void ThemThiSinhKhoiC(QuanLyThiSinh ql, string filePath)
         {
             ThiSinhKhoiC thiSinh = NhapThiSinhKhoiC();
+            ThemThiSinh(ql, filePath, thiSinh);
+        }
+
+        private static void ThemThiSinhKhoiD(QuanLyThiSinh ql, string filePath)
+        {
+            ThiSinhKhoiD thiSinh = NhapThiSinhKhoiD();
             ThemThiSinh(ql, filePath, thiSinh);
         }
 
@@ -130,6 +140,13 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             return thiSinh;
         }
 
+        private static ThiSinhKhoiD NhapThiSinhKhoiD()
+        {
+            ThiSinhKhoiD thiSinh = new ThiSinhKhoiD();
+            thiSinh.Nhap();
+            return thiSinh;
+        }
+
         private static void ThemThiSinh(QuanLyThiSinh ql, string filePath, ThongTinThiSinh thiSinh)
         {
             if (thiSinh == null)
@@ -143,6 +160,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                 ThiSinhKhoiA _ => "A",
                 ThiSinhKhoiB _ => "B",
                 ThiSinhKhoiC _ => "C",
+                ThiSinhKhoiD _ => "D",
                 _ => string.Empty
             };
 
@@ -209,6 +227,10 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             else if (thiSinhHienTai is ThiSinhKhoiC)
             {
                 thongTinCapNhat = NhapThiSinhKhoiC();
+            }
+            else if (thiSinhHienTai is ThiSinhKhoiD)
+            {
+                thongTinCapNhat = NhapThiSinhKhoiD();
             }
             else
             {
