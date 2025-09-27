@@ -48,6 +48,61 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
         {
             return danhSachThiSinh.FirstOrDefault(ts => ts.SoBD == soBD);
         }
+
+        public bool CapNhatThiSinh(string soBD, ThongTinThiSinh thongTinCapNhat)
+        {
+            if (string.IsNullOrWhiteSpace(soBD) || thongTinCapNhat == null)
+            {
+                return false;
+            }
+
+            var thiSinhHienTai = TimTheoSoBD(soBD);
+            if (thiSinhHienTai == null)
+            {
+                return false;
+            }
+
+            if (!string.Equals(thiSinhHienTai.SoBD, thongTinCapNhat.SoBD, StringComparison.Ordinal))
+            {
+                var thiSinhTrung = TimTheoSoBD(thongTinCapNhat.SoBD);
+                if (thiSinhTrung != null && !ReferenceEquals(thiSinhTrung, thiSinhHienTai))
+                {
+                    return false;
+                }
+            }
+
+            CapNhatThongTinCoBan(thiSinhHienTai, thongTinCapNhat);
+
+            if (thiSinhHienTai is ThiSinhKhoiA thiSinhKhoiA && thongTinCapNhat is ThiSinhKhoiA capNhatKhoiA)
+            {
+                CapNhatDiemKhoiA(thiSinhKhoiA, capNhatKhoiA);
+                return true;
+            }
+
+            if (thiSinhHienTai is ThiSinhKhoiB thiSinhKhoiB && thongTinCapNhat is ThiSinhKhoiB capNhatKhoiB)
+            {
+                CapNhatDiemKhoiB(thiSinhKhoiB, capNhatKhoiB);
+                return true;
+            }
+
+            if (thiSinhHienTai is ThiSinhKhoiC thiSinhKhoiC && thongTinCapNhat is ThiSinhKhoiC capNhatKhoiC)
+            {
+                CapNhatDiemKhoiC(thiSinhKhoiC, capNhatKhoiC);
+                return true;
+            }
+
+            return false;
+        }
+
+        public bool XoaThiSinh(string soBD)
+        {
+            if (string.IsNullOrWhiteSpace(soBD))
+            {
+                return false;
+            }
+
+            return danhSachThiSinh.RemoveAll(ts => ts.SoBD == soBD) > 0;
+        }
         public void TimThuKhoa()
         {
             ThiSinhKhoiA thuKhoaA = null;
@@ -402,6 +457,52 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
         private static string NormalizeText(string value)
         {
             return string.IsNullOrEmpty(value) ? string.Empty : value.Replace("|", "/");
+        }
+
+        private static void CapNhatThongTinCoBan(ThongTinThiSinh dich, ThongTinThiSinh nguon)
+        {
+            dich.SoBD = nguon.SoBD;
+            dich.HoTen = nguon.HoTen;
+            dich.NgaySinh = nguon.NgaySinh;
+            dich.DanToc = nguon.DanToc;
+            dich.GioiTinh = nguon.GioiTinh;
+            dich.NoiSinh = nguon.NoiSinh;
+            dich.DiaChi = nguon.DiaChi;
+            dich.SoCanCuoc = nguon.SoCanCuoc;
+            dich.SoDienThoai = nguon.SoDienThoai;
+            dich.Email = nguon.Email;
+            dich.KhuVuc = nguon.KhuVuc;
+            dich.DoiTuongUuTien = nguon.DoiTuongUuTien;
+            dich.HoiDongThi = nguon.HoiDongThi;
+        }
+
+        private static void CapNhatDiemKhoiA(ThiSinhKhoiA dich, ThiSinhKhoiA nguon)
+        {
+            dich.Diem.Toan = nguon.Diem.Toan;
+            dich.Diem.Van = nguon.Diem.Van;
+            dich.Diem.Anh = nguon.Diem.Anh;
+            dich.Diem.Ly = nguon.Diem.Ly;
+            dich.Diem.Hoa = nguon.Diem.Hoa;
+            dich.Diem.Sinh = nguon.Diem.Sinh;
+        }
+
+        private static void CapNhatDiemKhoiB(ThiSinhKhoiB dich, ThiSinhKhoiB nguon)
+        {
+            dich.Diem.Toan = nguon.Diem.Toan;
+            dich.Diem.Van = nguon.Diem.Van;
+            dich.Diem.Anh = nguon.Diem.Anh;
+            dich.Diem.Hoa = nguon.Diem.Hoa;
+            dich.Diem.Sinh = nguon.Diem.Sinh;
+        }
+
+        private static void CapNhatDiemKhoiC(ThiSinhKhoiC dich, ThiSinhKhoiC nguon)
+        {
+            dich.Diem.Toan = nguon.Diem.Toan;
+            dich.Diem.Van = nguon.Diem.Van;
+            dich.Diem.Anh = nguon.Diem.Anh;
+            dich.Diem.Su = nguon.Diem.Su;
+            dich.Diem.Dia = nguon.Diem.Dia;
+            dich.Diem.GDCD = nguon.Diem.GDCD;
         }
 
         private static double ParseDiem(string giaTri, string tenMon)

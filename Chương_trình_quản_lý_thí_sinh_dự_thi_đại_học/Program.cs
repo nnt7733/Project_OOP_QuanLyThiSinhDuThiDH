@@ -56,6 +56,12 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                     case "9":
                         ql.LuuVaoTxt(filePath);
                         break;
+                    case "10":
+                        CapNhatThongTinThiSinh(ql, filePath);
+                        break;
+                    case "11":
+                        XoaThiSinh(ql, filePath);
+                        break;
                     case "0":
                         thoat = true;
                         break;
@@ -80,6 +86,8 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             Console.WriteLine("7. Tìm kiếm thí sinh theo họ tên");
             Console.WriteLine("8. Tải dữ liệu từ tệp");
             Console.WriteLine("9. Lưu dữ liệu ra tệp");
+            Console.WriteLine("10. Cập nhật thông tin thí sinh");
+            Console.WriteLine("11. Xóa thí sinh");
             Console.WriteLine("0. Thoát");
         }
 
@@ -167,6 +175,78 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                 ts.InThongTin();
                 Console.WriteLine();
             }
+        }
+
+        private static void CapNhatThongTinThiSinh(QuanLyThiSinh ql, string filePath)
+        {
+            Console.Write("Nhập số báo danh cần cập nhật: ");
+            string soBD = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(soBD))
+            {
+                Console.WriteLine("Số báo danh không hợp lệ.");
+                return;
+            }
+
+            var thiSinhHienTai = ql.TimTheoSoBD(soBD);
+            if (thiSinhHienTai == null)
+            {
+                Console.WriteLine("Không tìm thấy thí sinh với số báo danh đã nhập.");
+                return;
+            }
+
+            Console.WriteLine("Nhập thông tin mới cho thí sinh (các thông tin cũ sẽ được thay thế).");
+
+            ThongTinThiSinh thongTinCapNhat;
+            if (thiSinhHienTai is ThiSinhKhoiA)
+            {
+                thongTinCapNhat = NhapThiSinhKhoiA();
+            }
+            else if (thiSinhHienTai is ThiSinhKhoiB)
+            {
+                thongTinCapNhat = NhapThiSinhKhoiB();
+            }
+            else if (thiSinhHienTai is ThiSinhKhoiC)
+            {
+                thongTinCapNhat = NhapThiSinhKhoiC();
+            }
+            else
+            {
+                Console.WriteLine("Loại thí sinh không xác định, không thể cập nhật.");
+                return;
+            }
+
+            if (!ql.CapNhatThiSinh(soBD, thongTinCapNhat))
+            {
+                Console.WriteLine("Cập nhật thất bại. Có thể số báo danh mới đã tồn tại hoặc loại khối không khớp.");
+                return;
+            }
+
+            Console.WriteLine("Cập nhật thí sinh thành công.");
+            ql.LuuVaoTxt(filePath);
+            Console.WriteLine("Dữ liệu đã được lưu vào tệp.");
+        }
+
+        private static void XoaThiSinh(QuanLyThiSinh ql, string filePath)
+        {
+            Console.Write("Nhập số báo danh cần xóa: ");
+            string soBD = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(soBD))
+            {
+                Console.WriteLine("Số báo danh không hợp lệ.");
+                return;
+            }
+
+            if (!ql.XoaThiSinh(soBD))
+            {
+                Console.WriteLine("Không tìm thấy thí sinh với số báo danh đã nhập.");
+                return;
+            }
+
+            Console.WriteLine($"Đã xóa thí sinh có số báo danh {soBD}.");
+            ql.LuuVaoTxt(filePath);
+            Console.WriteLine("Dữ liệu đã được lưu vào tệp.");
         }
     }
 }
