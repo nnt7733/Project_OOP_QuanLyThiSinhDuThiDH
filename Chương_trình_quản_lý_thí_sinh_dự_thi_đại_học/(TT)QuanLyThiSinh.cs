@@ -493,6 +493,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             dich.Diem.Toan = nguon.Diem.Toan;
             dich.Diem.Van = nguon.Diem.Van;
             dich.Diem.Anh = nguon.Diem.Anh;
+            dich.Diem.Ly = nguon.Diem.Ly;
             dich.Diem.Hoa = nguon.Diem.Hoa;
             dich.Diem.Sinh = nguon.Diem.Sinh;
         }
