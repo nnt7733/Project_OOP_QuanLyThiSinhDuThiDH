@@ -19,17 +19,24 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             return Diem.Toan + Diem.Ly + Diem.Hoa;
         }
         public double TinhDiemVung() => TinhDiemCongKhuVuc();
-        public double TinhDiemUuTien() => TinhDiemCongUuTien();
+        public double TinhDiemUuTien() => TinhTongDiemUuTien(TinhDiem());
         public double TongDiem()
         {
-            return TinhDiem() + TinhDiemVung() + TinhDiemUuTien();
+            var tongDiemBaMon = TinhDiem();
+            return tongDiemBaMon + TinhTongDiemUuTien(tongDiemBaMon);
         }
         public void In()
         {
             Console.WriteLine("=== Thí sinh khối A ===");
             base.InThongTin();
             Diem.InDiem();
-            Console.WriteLine($"Tổng điểm khối A:{TongDiem()}");
+            var tongDiemBaMon = TinhDiem();
+            var diemUuTienCoBan = Math.Round(TinhDiemCongKhuVuc() + TinhDiemCongUuTien(), 2, MidpointRounding.AwayFromZero);
+            var diemUuTienApDung = TinhTongDiemUuTien(tongDiemBaMon);
+            Console.WriteLine($"Tổng điểm 3 môn: {tongDiemBaMon}");
+            Console.WriteLine($"Điểm ưu tiên cơ bản (KV + UT): {diemUuTienCoBan}");
+            Console.WriteLine($"Điểm ưu tiên áp dụng: {diemUuTienApDung}");
+            Console.WriteLine($"Tổng điểm khối A: {tongDiemBaMon + diemUuTienApDung}");
         }
     }
 }
