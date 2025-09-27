@@ -10,13 +10,13 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             Console.OutputEncoding = Encoding.UTF8;
             Console.InputEncoding = Encoding.UTF8;
             const string dataDirectory = "Data";
-            const string dataFileName = "ThiSinh.xlsx";
+            const string dataFileName = "ThiSinh.txt";
             string filePath = Path.Combine(dataDirectory, dataFileName);
 
             Directory.CreateDirectory(dataDirectory);
 
             QuanLyThiSinh ql = new QuanLyThiSinh();
-            ql.TaiTuExcel(filePath);
+            ql.TaiTuTxt(filePath);
             ThiSinhKhoiA tsA = new ThiSinhKhoiA();
             tsA.Nhap();
             if (!ql.ThemThiSinh(tsA))
@@ -25,7 +25,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             }
             else
             {
-                ql.LuuVaoExcel(filePath);
+                ql.LuuVaoTxt(filePath);
             }
             ThiSinhKhoiC tsC = new ThiSinhKhoiC();
             tsC.Nhap();
@@ -35,7 +35,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             }
             else
             {
-                ql.LuuVaoExcel(filePath);
+                ql.LuuVaoTxt(filePath);
             }
             ql.InDanhSach();
             ql.ThongKeTheoKhoi();
@@ -51,7 +51,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                 Console.WriteLine();
             }
 
-            ql.LuuVaoExcel(filePath);
+            ql.LuuVaoTxt(filePath);
 
         }
     }

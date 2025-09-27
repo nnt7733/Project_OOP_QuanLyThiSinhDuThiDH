@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Globalization;
-using ClosedXML.Excel;
+using System.Text;
 namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
 {
     public class QuanLyThiSinh
@@ -126,7 +126,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             return danhSachThiSinh.Where(ts => ts.HoTen.IndexOf(hoTen, StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
-        public void LuuVaoExcel(string filePath)
+        public void LuuVaoTxt(string filePath)
         {
             if (string.IsNullOrWhiteSpace(filePath))
             {
@@ -142,27 +142,22 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                     Directory.CreateDirectory(directory);
                 }
 
-                using (var workbook = new XLWorkbook())
+                var headers = new[]
                 {
-                    var worksheet = workbook.Worksheets.Add("DanhSach");
-                    var headers = new[]
-                    {
-                        "Khoi", "SoBD", "HoTen", "NgaySinh", "DanToc", "GioiTinh", "NoiSinh", "DiaChi",
-                        "SoCanCuoc", "SoDienThoai", "Email", "KhuVuc", "DoiTuongUuTien", "HoiDongThi",
-                        "Toan", "Van", "Anh", "Ly", "Hoa", "Sinh", "Su", "Dia", "GDCD"
-                    };
+                    "Khoi", "SoBD", "HoTen", "NgaySinh", "DanToc", "GioiTinh", "NoiSinh", "DiaChi",
+                    "SoCanCuoc", "SoDienThoai", "Email", "KhuVuc", "DoiTuongUuTien", "HoiDongThi",
+                    "Toan", "Van", "Anh", "Ly", "Hoa", "Sinh", "Su", "Dia", "GDCD"
+                };
 
-                    for (var i = 0; i < headers.Length; i++)
-                    {
-                        worksheet.Cell(1, i + 1).Value = headers[i];
-                    }
+                using (var writer = new StreamWriter(filePath, false, Encoding.UTF8))
+                {
+                    writer.WriteLine(string.Join("|", headers));
 
-                    for (var index = 0; index < danhSachThiSinh.Count; index++)
+                    foreach (var ts in danhSachThiSinh)
                     {
-                        var ts = danhSachThiSinh[index];
-                        var row = index + 2;
+                        var fields = new string[headers.Length];
 
-                        worksheet.Cell(row, 1).Value = ts switch
+                        fields[0] = ts switch
                         {
                             ThiSinhKhoiA _ => "A",
                             ThiSinhKhoiB _ => "B",
@@ -170,19 +165,19 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                             _ => string.Empty
                         };
 
-                        worksheet.Cell(row, 2).Value = ts.SoBD;
-                        worksheet.Cell(row, 3).Value = ts.HoTen;
-                        worksheet.Cell(row, 4).Value = ts.NgaySinh.ToString("dd/MM/yyyy");
-                        worksheet.Cell(row, 5).Value = ts.DanToc;
-                        worksheet.Cell(row, 6).Value = ts.GioiTinh;
-                        worksheet.Cell(row, 7).Value = ts.NoiSinh;
-                        worksheet.Cell(row, 8).Value = ts.DiaChi;
-                        worksheet.Cell(row, 9).Value = ts.SoCanCuoc;
-                        worksheet.Cell(row, 10).Value = ts.SoDienThoai;
-                        worksheet.Cell(row, 11).Value = ts.Email;
-                        worksheet.Cell(row, 12).Value = ts.KhuVuc;
-                        worksheet.Cell(row, 13).Value = ts.DoiTuongUuTien;
-                        worksheet.Cell(row, 14).Value = ts.HoiDongThi;
+                        fields[1] = NormalizeText(ts.SoBD);
+                        fields[2] = NormalizeText(ts.HoTen);
+                        fields[3] = ts.NgaySinh.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+                        fields[4] = NormalizeText(ts.DanToc);
+                        fields[5] = NormalizeText(ts.GioiTinh);
+                        fields[6] = NormalizeText(ts.NoiSinh);
+                        fields[7] = NormalizeText(ts.DiaChi);
+                        fields[8] = NormalizeText(ts.SoCanCuoc);
+                        fields[9] = NormalizeText(ts.SoDienThoai);
+                        fields[10] = NormalizeText(ts.Email);
+                        fields[11] = NormalizeText(ts.KhuVuc);
+                        fields[12] = ts.DoiTuongUuTien.ToString(CultureInfo.InvariantCulture);
+                        fields[13] = NormalizeText(ts.HoiDongThi);
 
                         double? toan = null;
                         double? van = null;
@@ -221,30 +216,29 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                                 break;
                         }
 
-                        worksheet.Cell(row, 15).Value = toan ?? string.Empty;
-                        worksheet.Cell(row, 16).Value = van ?? string.Empty;
-                        worksheet.Cell(row, 17).Value = anh ?? string.Empty;
-                        worksheet.Cell(row, 18).Value = ly ?? string.Empty;
-                        worksheet.Cell(row, 19).Value = hoa ?? string.Empty;
-                        worksheet.Cell(row, 20).Value = sinh ?? string.Empty;
-                        worksheet.Cell(row, 21).Value = su ?? string.Empty;
-                        worksheet.Cell(row, 22).Value = dia ?? string.Empty;
-                        worksheet.Cell(row, 23).Value = gdcd ?? string.Empty;
-                    }
+                        fields[14] = FormatScore(toan);
+                        fields[15] = FormatScore(van);
+                        fields[16] = FormatScore(anh);
+                        fields[17] = FormatScore(ly);
+                        fields[18] = FormatScore(hoa);
+                        fields[19] = FormatScore(sinh);
+                        fields[20] = FormatScore(su);
+                        fields[21] = FormatScore(dia);
+                        fields[22] = FormatScore(gdcd);
 
-                    worksheet.Columns().AdjustToContents();
-                    workbook.SaveAs(filePath);
+                        writer.WriteLine(string.Join("|", fields));
+                    }
                 }
 
                 Console.WriteLine($"Đã lưu danh sách thí sinh vào: {filePath}");
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Lỗi khi lưu file Excel: {ex.Message}");
+                Console.WriteLine($"Lỗi khi lưu file văn bản: {ex.Message}");
             }
         }
 
-        public void TaiTuExcel(string filePath)
+        public void TaiTuTxt(string filePath)
         {
             if (string.IsNullOrWhiteSpace(filePath))
             {
@@ -260,51 +254,60 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
 
             try
             {
-                using (var workbook = new XLWorkbook(filePath))
+                using (var reader = new StreamReader(filePath, Encoding.UTF8))
                 {
-                    var worksheet = workbook.Worksheets
-                        .FirstOrDefault(ws => string.Equals(ws.Name, "DanhSach", StringComparison.OrdinalIgnoreCase))
-                        ?? workbook.Worksheets.FirstOrDefault();
-
-                    if (worksheet == null)
+                    var header = reader.ReadLine();
+                    if (header == null)
                     {
-                        Console.WriteLine("Không tìm thấy bảng tính hợp lệ trong tệp Excel.");
-                        return;
-                    }
-
-                    var lastRow = worksheet.LastRowUsed()?.RowNumber();
-                    if (lastRow == null || lastRow.Value < 2)
-                    {
-                        danhSachThiSinh.Clear();
-                        Console.WriteLine("Không có dữ liệu thí sinh để tải.");
+                        Console.WriteLine("Tệp không chứa dữ liệu.");
                         return;
                     }
 
                     danhSachThiSinh.Clear();
+                    var lineNumber = 1;
 
-                    for (var rowNumber = 2; rowNumber <= lastRow.Value; rowNumber++)
+                    while (!reader.EndOfStream)
                     {
+                        var line = reader.ReadLine();
+                        lineNumber++;
+
+                        if (string.IsNullOrWhiteSpace(line))
+                        {
+                            continue;
+                        }
+
                         try
                         {
-                            var khoi = worksheet.Cell(rowNumber, 1).GetValue<string>().Trim();
+                            var parts = line.Split('|');
+                            if (parts.Length < 23)
+                            {
+                                throw new FormatException("Không đủ cột dữ liệu");
+                            }
+
+                            for (var i = 0; i < parts.Length; i++)
+                            {
+                                parts[i] = parts[i].Trim();
+                            }
+
+                            var khoi = parts[0];
                             if (string.IsNullOrEmpty(khoi))
                             {
                                 throw new FormatException("Thiếu thông tin khối");
                             }
 
-                            var soBD = worksheet.Cell(rowNumber, 2).GetValue<string>().Trim();
-                            var hoTen = worksheet.Cell(rowNumber, 3).GetValue<string>().Trim();
-                            var ngaySinhStr = worksheet.Cell(rowNumber, 4).GetValue<string>().Trim();
-                            var danToc = worksheet.Cell(rowNumber, 5).GetValue<string>().Trim();
-                            var gioiTinh = worksheet.Cell(rowNumber, 6).GetValue<string>().Trim();
-                            var noiSinh = worksheet.Cell(rowNumber, 7).GetValue<string>().Trim();
-                            var diaChi = worksheet.Cell(rowNumber, 8).GetValue<string>().Trim();
-                            var soCanCuoc = worksheet.Cell(rowNumber, 9).GetValue<string>().Trim();
-                            var soDienThoai = worksheet.Cell(rowNumber, 10).GetValue<string>().Trim();
-                            var email = worksheet.Cell(rowNumber, 11).GetValue<string>().Trim();
-                            var khuVuc = worksheet.Cell(rowNumber, 12).GetValue<string>().Trim();
-                            var doiTuongStr = worksheet.Cell(rowNumber, 13).GetValue<string>().Trim();
-                            var hoiDongThi = worksheet.Cell(rowNumber, 14).GetValue<string>().Trim();
+                            var soBD = parts[1];
+                            var hoTen = parts[2];
+                            var ngaySinhStr = parts[3];
+                            var danToc = parts[4];
+                            var gioiTinh = parts[5];
+                            var noiSinh = parts[6];
+                            var diaChi = parts[7];
+                            var soCanCuoc = parts[8];
+                            var soDienThoai = parts[9];
+                            var email = parts[10];
+                            var khuVuc = parts[11];
+                            var doiTuongStr = parts[12];
+                            var hoiDongThi = parts[13];
 
                             if (string.IsNullOrEmpty(ngaySinhStr))
                             {
@@ -319,9 +322,9 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                             var ngaySinh = DateTime.ParseExact(ngaySinhStr, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                             var doiTuongUuTien = int.Parse(doiTuongStr, CultureInfo.InvariantCulture);
 
-                            var toan = ParseDiem(worksheet.Cell(rowNumber, 15), "điểm Toán");
-                            var van = ParseDiem(worksheet.Cell(rowNumber, 16), "điểm Văn");
-                            var anh = ParseDiem(worksheet.Cell(rowNumber, 17), "điểm Anh");
+                            var toan = ParseDiem(parts[14], "điểm Toán");
+                            var van = ParseDiem(parts[15], "điểm Văn");
+                            var anh = ParseDiem(parts[16], "điểm Anh");
 
                             ThongTinThiSinh thiSinh = null;
 
@@ -332,9 +335,9 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                                     thiSinhA.Diem.Toan = toan;
                                     thiSinhA.Diem.Van = van;
                                     thiSinhA.Diem.Anh = anh;
-                                    thiSinhA.Diem.Ly = ParseDiem(worksheet.Cell(rowNumber, 18), "điểm Lý");
-                                    thiSinhA.Diem.Hoa = ParseDiem(worksheet.Cell(rowNumber, 19), "điểm Hóa");
-                                    thiSinhA.Diem.Sinh = ParseDiem(worksheet.Cell(rowNumber, 20), "điểm Sinh");
+                                    thiSinhA.Diem.Ly = ParseDiem(parts[17], "điểm Lý");
+                                    thiSinhA.Diem.Hoa = ParseDiem(parts[18], "điểm Hóa");
+                                    thiSinhA.Diem.Sinh = ParseDiem(parts[19], "điểm Sinh");
                                     thiSinh = thiSinhA;
                                     break;
                                 case "B":
@@ -342,8 +345,8 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                                     thiSinhB.Diem.Toan = toan;
                                     thiSinhB.Diem.Van = van;
                                     thiSinhB.Diem.Anh = anh;
-                                    thiSinhB.Diem.Hoa = ParseDiem(worksheet.Cell(rowNumber, 19), "điểm Hóa");
-                                    thiSinhB.Diem.Sinh = ParseDiem(worksheet.Cell(rowNumber, 20), "điểm Sinh");
+                                    thiSinhB.Diem.Hoa = ParseDiem(parts[18], "điểm Hóa");
+                                    thiSinhB.Diem.Sinh = ParseDiem(parts[19], "điểm Sinh");
                                     thiSinh = thiSinhB;
                                     break;
                                 case "C":
@@ -351,9 +354,9 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                                     thiSinhC.Diem.Toan = toan;
                                     thiSinhC.Diem.Van = van;
                                     thiSinhC.Diem.Anh = anh;
-                                    thiSinhC.Diem.Su = ParseDiem(worksheet.Cell(rowNumber, 21), "điểm Sử");
-                                    thiSinhC.Diem.Dia = ParseDiem(worksheet.Cell(rowNumber, 22), "điểm Địa");
-                                    thiSinhC.Diem.GDCD = ParseDiem(worksheet.Cell(rowNumber, 23), "điểm GDCD");
+                                    thiSinhC.Diem.Su = ParseDiem(parts[20], "điểm Sử");
+                                    thiSinhC.Diem.Dia = ParseDiem(parts[21], "điểm Địa");
+                                    thiSinhC.Diem.GDCD = ParseDiem(parts[22], "điểm GDCD");
                                     thiSinh = thiSinhC;
                                     break;
                                 default:
@@ -378,7 +381,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                         }
                         catch (Exception ex)
                         {
-                            Console.WriteLine($"Bỏ qua hàng {rowNumber} do lỗi: {ex.Message}");
+                            Console.WriteLine($"Bỏ qua dòng {lineNumber} do lỗi: {ex.Message}");
                         }
                     }
 
@@ -387,14 +390,23 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Lỗi khi tải file Excel: {ex.Message}");
+                Console.WriteLine($"Lỗi khi tải file văn bản: {ex.Message}");
             }
         }
 
-        private static double ParseDiem(IXLCell cell, string tenMon)
+        private static string FormatScore(double? score)
         {
-            var giaTri = cell.GetValue<string>().Trim();
-            if (string.IsNullOrEmpty(giaTri))
+            return score.HasValue ? score.Value.ToString(CultureInfo.InvariantCulture) : string.Empty;
+        }
+
+        private static string NormalizeText(string value)
+        {
+            return string.IsNullOrEmpty(value) ? string.Empty : value.Replace("|", "/");
+        }
+
+        private static double ParseDiem(string giaTri, string tenMon)
+        {
+            if (string.IsNullOrWhiteSpace(giaTri))
             {
                 throw new FormatException($"Thiếu {tenMon}");
             }
