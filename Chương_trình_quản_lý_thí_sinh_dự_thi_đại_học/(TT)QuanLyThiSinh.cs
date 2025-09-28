@@ -9,7 +9,11 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
     public class QuanLyThiSinh
     {
         private List<ThongTinThiSinh> danhSachThiSinh;
-        private const string FileStructureGuidance = "Định dạng tệp: Khoi|SoBD|HoTen|NgaySinh|DanToc|GioiTinh|NoiSinh|DiaChi|SoCanCuoc|SoDienThoai|Email|KhuVuc|DoiTuongUuTien|HoiDongThi|Mon1|Mon2|Mon3. Khối A: Mon1=Toán, Mon2=Lý, Mon3=Hóa; Khối B: Mon1=Toán, Mon2=Hóa, Mon3=Sinh; Khối C: Mon1=Văn, Mon2=Sử, Mon3=Địa.";
+        private const string FileStructureGuidance = "Định dạng tệp:\n" +
+            "Khoi|SoBD|HoTen|NgaySinh|DanToc|TonGiao|GioiTinh|NoiSinh|DiaChi|SoCanCuoc|SoDienThoai|Email|KhuVuc|DoiTuongUuTien|HoiDongThi|Mon1|Mon2|Mon3\n" +
+            "Khối A: Mon1=Toán, Mon2=Lý, Mon3=Hóa\n" +
+            "Khối B: Mon1=Toán, Mon2=Hóa, Mon3=Sinh\n" +
+            "Khối C: Mon1=Văn, Mon2=Sử, Mon3=Địa";
         public QuanLyThiSinh()
         {
             danhSachThiSinh = new List<ThongTinThiSinh>();
@@ -200,7 +204,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
 
                 var headers = new[]
                 {
-                    "Khoi", "SoBD", "HoTen", "NgaySinh", "DanToc", "GioiTinh", "NoiSinh", "DiaChi",
+                    "Khoi", "SoBD", "HoTen", "NgaySinh", "DanToc", "TonGiao", "GioiTinh", "NoiSinh", "DiaChi",
                     "SoCanCuoc", "SoDienThoai", "Email", "KhuVuc", "DoiTuongUuTien", "HoiDongThi",
                     "Mon1", "Mon2", "Mon3"
                 };
@@ -225,15 +229,16 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                         fields[2] = NormalizeText(ts.HoTen);
                         fields[3] = ts.NgaySinh.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
                         fields[4] = NormalizeText(ts.DanToc);
-                        fields[5] = NormalizeText(ts.GioiTinh);
-                        fields[6] = NormalizeText(ts.NoiSinh);
-                        fields[7] = NormalizeText(ts.DiaChi);
-                        fields[8] = NormalizeText(ts.SoCanCuoc);
-                        fields[9] = NormalizeText(ts.SoDienThoai);
-                        fields[10] = NormalizeText(ts.Email);
-                        fields[11] = NormalizeText(ts.KhuVuc);
-                        fields[12] = ts.DoiTuongUuTien.ToString(CultureInfo.InvariantCulture);
-                        fields[13] = NormalizeText(ts.HoiDongThi);
+                        fields[5] = NormalizeText(ts.TonGiao);
+                        fields[6] = NormalizeText(ts.GioiTinh);
+                        fields[7] = NormalizeText(ts.NoiSinh);
+                        fields[8] = NormalizeText(ts.DiaChi);
+                        fields[9] = NormalizeText(ts.SoCanCuoc);
+                        fields[10] = NormalizeText(ts.SoDienThoai);
+                        fields[11] = NormalizeText(ts.Email);
+                        fields[12] = NormalizeText(ts.KhuVuc);
+                        fields[13] = ts.DoiTuongUuTien.ToString(CultureInfo.InvariantCulture);
+                        fields[14] = NormalizeText(ts.HoiDongThi);
 
                         double? mon1 = null;
                         double? mon2 = null;
@@ -258,16 +263,15 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                                 break;
                         }
 
-                        fields[14] = FormatScore(mon1);
-                        fields[15] = FormatScore(mon2);
-                        fields[16] = FormatScore(mon3);
+                        fields[15] = FormatScore(mon1);
+                        fields[16] = FormatScore(mon2);
+                        fields[17] = FormatScore(mon3);
 
                         writer.WriteLine(string.Join("|", fields));
                     }
                 }
 
                 Console.WriteLine($"Đã lưu danh sách thí sinh vào: {filePath}");
-                Console.WriteLine(FileStructureGuidance);
             }
             catch (Exception ex)
             {
@@ -293,7 +297,6 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             {
                 using (var reader = new StreamReader(filePath, Encoding.UTF8))
                 {
-                    Console.WriteLine(FileStructureGuidance);
 
                     var header = reader.ReadLine();
                     if (header == null)
@@ -318,7 +321,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                         try
                         {
                             var parts = line.Split('|');
-                            if (parts.Length < 17)
+                            if (parts.Length < 18)
                             {
                                 throw new FormatException("Không đủ cột dữ liệu");
                             }
@@ -338,15 +341,16 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                             var hoTen = parts[2];
                             var ngaySinhStr = parts[3];
                             var danToc = parts[4];
-                            var gioiTinh = parts[5];
-                            var noiSinh = parts[6];
-                            var diaChi = parts[7];
-                            var soCanCuoc = parts[8];
-                            var soDienThoai = parts[9];
-                            var email = parts[10];
-                            var khuVuc = parts[11];
-                            var doiTuongStr = parts[12];
-                            var hoiDongThi = parts[13];
+                            var tonGiao = parts[5];
+                            var gioiTinh = parts[6];
+                            var noiSinh = parts[7];
+                            var diaChi = parts[8];
+                            var soCanCuoc = parts[9];
+                            var soDienThoai = parts[10];
+                            var email = parts[11];
+                            var khuVuc = parts[12];
+                            var doiTuongStr = parts[13];
+                            var hoiDongThi = parts[14];
 
                             if (string.IsNullOrEmpty(ngaySinhStr))
                             {
@@ -368,23 +372,23 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                             {
                                 case "A":
                                     var thiSinhA = new ThiSinhKhoiA();
-                                    thiSinhA.Diem.Toan = ParseDiem(parts[14], "điểm Toán", khoiTrim);
-                                    thiSinhA.Diem.Ly = ParseDiem(parts[15], "điểm Lý", khoiTrim);
-                                    thiSinhA.Diem.Hoa = ParseDiem(parts[16], "điểm Hóa", khoiTrim);
+                                    thiSinhA.Diem.Toan = ParseDiem(parts[15], "điểm Toán", khoiTrim);
+                                    thiSinhA.Diem.Ly = ParseDiem(parts[16], "điểm Lý", khoiTrim);
+                                    thiSinhA.Diem.Hoa = ParseDiem(parts[17], "điểm Hóa", khoiTrim);
                                     thiSinh = thiSinhA;
                                     break;
                                 case "B":
                                     var thiSinhB = new ThiSinhKhoiB();
-                                    thiSinhB.Diem.Toan = ParseDiem(parts[14], "điểm Toán", khoiTrim);
-                                    thiSinhB.Diem.Hoa = ParseDiem(parts[15], "điểm Hóa", khoiTrim);
-                                    thiSinhB.Diem.Sinh = ParseDiem(parts[16], "điểm Sinh", khoiTrim);
+                                    thiSinhB.Diem.Toan = ParseDiem(parts[15], "điểm Toán", khoiTrim);
+                                    thiSinhB.Diem.Hoa = ParseDiem(parts[16], "điểm Hóa", khoiTrim);
+                                    thiSinhB.Diem.Sinh = ParseDiem(parts[17], "điểm Sinh", khoiTrim);
                                     thiSinh = thiSinhB;
                                     break;
                                 case "C":
                                     var thiSinhC = new ThiSinhKhoiC();
-                                    thiSinhC.Diem.Van = ParseDiem(parts[14], "điểm Văn", khoiTrim);
-                                    thiSinhC.Diem.Su = ParseDiem(parts[15], "điểm Sử", khoiTrim);
-                                    thiSinhC.Diem.Dia = ParseDiem(parts[16], "điểm Địa", khoiTrim);
+                                    thiSinhC.Diem.Van = ParseDiem(parts[15], "điểm Văn", khoiTrim);
+                                    thiSinhC.Diem.Su = ParseDiem(parts[16], "điểm Sử", khoiTrim);
+                                    thiSinhC.Diem.Dia = ParseDiem(parts[17], "điểm Địa", khoiTrim);
                                     thiSinh = thiSinhC;
                                     break;
                                 default:
@@ -395,6 +399,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                             thiSinh.HoTen = hoTen;
                             thiSinh.NgaySinh = ngaySinh;
                             thiSinh.DanToc = danToc;
+                            thiSinh.TonGiao = tonGiao;
                             thiSinh.GioiTinh = gioiTinh;
                             thiSinh.NoiSinh = noiSinh;
                             thiSinh.DiaChi = diaChi;
@@ -438,6 +443,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             dich.HoTen = nguon.HoTen;
             dich.NgaySinh = nguon.NgaySinh;
             dich.DanToc = nguon.DanToc;
+            dich.TonGiao = nguon.TonGiao;
             dich.GioiTinh = nguon.GioiTinh;
             dich.NoiSinh = nguon.NoiSinh;
             dich.DiaChi = nguon.DiaChi;
