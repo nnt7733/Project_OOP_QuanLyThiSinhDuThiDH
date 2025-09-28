@@ -9,6 +9,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
     public class QuanLyThiSinh
     {
         private List<ThongTinThiSinh> danhSachThiSinh;
+        private const string FileStructureGuidance = "Định dạng tệp: Khoi|SoBD|HoTen|NgaySinh|DanToc|GioiTinh|NoiSinh|DiaChi|SoCanCuoc|SoDienThoai|Email|KhuVuc|DoiTuongUuTien|HoiDongThi|Mon1|Mon2|Mon3. Khối A: Mon1=Toán, Mon2=Lý, Mon3=Hóa; Khối B: Mon1=Toán, Mon2=Hóa, Mon3=Sinh; Khối C: Mon1=Văn, Mon2=Sử, Mon3=Địa.";
         public QuanLyThiSinh()
         {
             danhSachThiSinh = new List<ThongTinThiSinh>();
@@ -201,7 +202,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                 {
                     "Khoi", "SoBD", "HoTen", "NgaySinh", "DanToc", "GioiTinh", "NoiSinh", "DiaChi",
                     "SoCanCuoc", "SoDienThoai", "Email", "KhuVuc", "DoiTuongUuTien", "HoiDongThi",
-                    "Toan", "Ly", "Hoa", "Sinh", "Van", "Su", "Dia"
+                    "Mon1", "Mon2", "Mon3"
                 };
 
                 using (var writer = new StreamWriter(filePath, false, Encoding.UTF8))
@@ -234,46 +235,39 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                         fields[12] = ts.DoiTuongUuTien.ToString(CultureInfo.InvariantCulture);
                         fields[13] = NormalizeText(ts.HoiDongThi);
 
-                        double? toan = null;
-                        double? ly = null;
-                        double? hoa = null;
-                        double? sinh = null;
-                        double? van = null;
-                        double? su = null;
-                        double? dia = null;
+                        double? mon1 = null;
+                        double? mon2 = null;
+                        double? mon3 = null;
 
                         switch (ts)
                         {
                             case ThiSinhKhoiA khoiA:
-                                toan = khoiA.Diem.Toan;
-                                ly = khoiA.Diem.Ly;
-                                hoa = khoiA.Diem.Hoa;
+                                mon1 = khoiA.Diem.Toan;
+                                mon2 = khoiA.Diem.Ly;
+                                mon3 = khoiA.Diem.Hoa;
                                 break;
                             case ThiSinhKhoiB khoiB:
-                                toan = khoiB.Diem.Toan;
-                                hoa = khoiB.Diem.Hoa;
-                                sinh = khoiB.Diem.Sinh;
+                                mon1 = khoiB.Diem.Toan;
+                                mon2 = khoiB.Diem.Hoa;
+                                mon3 = khoiB.Diem.Sinh;
                                 break;
                             case ThiSinhKhoiC khoiC:
-                                van = khoiC.Diem.Van;
-                                su = khoiC.Diem.Su;
-                                dia = khoiC.Diem.Dia;
+                                mon1 = khoiC.Diem.Van;
+                                mon2 = khoiC.Diem.Su;
+                                mon3 = khoiC.Diem.Dia;
                                 break;
                         }
 
-                        fields[14] = FormatScore(toan);
-                        fields[15] = FormatScore(ly);
-                        fields[16] = FormatScore(hoa);
-                        fields[17] = FormatScore(sinh);
-                        fields[18] = FormatScore(van);
-                        fields[19] = FormatScore(su);
-                        fields[20] = FormatScore(dia);
+                        fields[14] = FormatScore(mon1);
+                        fields[15] = FormatScore(mon2);
+                        fields[16] = FormatScore(mon3);
 
                         writer.WriteLine(string.Join("|", fields));
                     }
                 }
 
                 Console.WriteLine($"Đã lưu danh sách thí sinh vào: {filePath}");
+                Console.WriteLine(FileStructureGuidance);
             }
             catch (Exception ex)
             {
@@ -299,6 +293,8 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             {
                 using (var reader = new StreamReader(filePath, Encoding.UTF8))
                 {
+                    Console.WriteLine(FileStructureGuidance);
+
                     var header = reader.ReadLine();
                     if (header == null)
                     {
@@ -322,7 +318,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                         try
                         {
                             var parts = line.Split('|');
-                            if (parts.Length < 21)
+                            if (parts.Length < 17)
                             {
                                 throw new FormatException("Không đủ cột dữ liệu");
                             }
@@ -367,27 +363,28 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
 
                             ThongTinThiSinh thiSinh = null;
 
-                            switch (khoi.Trim().ToUpperInvariant())
+                            var khoiTrim = khoi.Trim().ToUpperInvariant();
+                            switch (khoiTrim)
                             {
                                 case "A":
                                     var thiSinhA = new ThiSinhKhoiA();
-                                    thiSinhA.Diem.Toan = ParseDiem(parts[14], "điểm Toán");
-                                    thiSinhA.Diem.Ly = ParseDiem(parts[15], "điểm Lý");
-                                    thiSinhA.Diem.Hoa = ParseDiem(parts[16], "điểm Hóa");
+                                    thiSinhA.Diem.Toan = ParseDiem(parts[14], "điểm Toán", khoiTrim);
+                                    thiSinhA.Diem.Ly = ParseDiem(parts[15], "điểm Lý", khoiTrim);
+                                    thiSinhA.Diem.Hoa = ParseDiem(parts[16], "điểm Hóa", khoiTrim);
                                     thiSinh = thiSinhA;
                                     break;
                                 case "B":
                                     var thiSinhB = new ThiSinhKhoiB();
-                                    thiSinhB.Diem.Toan = ParseDiem(parts[14], "điểm Toán");
-                                    thiSinhB.Diem.Hoa = ParseDiem(parts[16], "điểm Hóa");
-                                    thiSinhB.Diem.Sinh = ParseDiem(parts[17], "điểm Sinh");
+                                    thiSinhB.Diem.Toan = ParseDiem(parts[14], "điểm Toán", khoiTrim);
+                                    thiSinhB.Diem.Hoa = ParseDiem(parts[15], "điểm Hóa", khoiTrim);
+                                    thiSinhB.Diem.Sinh = ParseDiem(parts[16], "điểm Sinh", khoiTrim);
                                     thiSinh = thiSinhB;
                                     break;
                                 case "C":
                                     var thiSinhC = new ThiSinhKhoiC();
-                                    thiSinhC.Diem.Van = ParseDiem(parts[18], "điểm Văn");
-                                    thiSinhC.Diem.Su = ParseDiem(parts[19], "điểm Sử");
-                                    thiSinhC.Diem.Dia = ParseDiem(parts[20], "điểm Địa");
+                                    thiSinhC.Diem.Van = ParseDiem(parts[14], "điểm Văn", khoiTrim);
+                                    thiSinhC.Diem.Su = ParseDiem(parts[15], "điểm Sử", khoiTrim);
+                                    thiSinhC.Diem.Dia = ParseDiem(parts[16], "điểm Địa", khoiTrim);
                                     thiSinh = thiSinhC;
                                     break;
                                 default:
@@ -473,14 +470,24 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             dich.Diem.Dia = nguon.Diem.Dia;
         }
 
-        private static double ParseDiem(string giaTri, string tenMon)
+        private static double ParseDiem(string giaTri, string tenMon, string khoi)
         {
             if (string.IsNullOrWhiteSpace(giaTri))
             {
-                throw new FormatException($"Thiếu {tenMon}");
+                throw new FormatException($"Thiếu {tenMon}. {FileStructureGuidance}");
             }
 
-            return double.Parse(giaTri, CultureInfo.InvariantCulture);
+            if (double.TryParse(giaTri, NumberStyles.Float, CultureInfo.InvariantCulture, out var diem))
+            {
+                return diem;
+            }
+
+            if (double.TryParse(giaTri, NumberStyles.Float, CultureInfo.GetCultureInfo("vi-VN"), out diem))
+            {
+                return diem;
+            }
+
+            throw new FormatException($"Không thể phân tích {tenMon} cho khối {khoi}. {FileStructureGuidance}");
         }
     }
 }
