@@ -54,6 +54,7 @@
     <Compile Include="%28TS%29ThiSinhKhoiA.cs" />
     <Compile Include="%28TS%29ThiSinhKhoiB.cs" />
     <Compile Include="%28TS%29ThiSinhKhoiC.cs" />
+    <Compile Include="NgayThangNam.cs" />
     <Compile Include="%28TT%29ThongTinThiSinh.cs" />
     <Compile Include="%28TT%29QuanLyThiSinh.cs" />
   </ItemGroup>
