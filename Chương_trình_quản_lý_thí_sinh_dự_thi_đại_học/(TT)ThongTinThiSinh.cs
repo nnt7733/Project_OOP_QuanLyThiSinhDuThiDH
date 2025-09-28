@@ -174,18 +174,18 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             while (true)
             {
                 giaTri = Console.ReadLine();
-                try
+                if (NgayThangNam.TryParse(giaTri, out var ngayThangNam))
                 {
-                    return NgayThangNam.Parse(giaTri);
+                    return ngayThangNam;
                 }
-                catch (FormatException)
+
+                if (string.IsNullOrWhiteSpace(giaTri))
                 {
-                    Console.Write("Sai định dạng! Nhập lại (dd/MM/yyyy): ");
+                    Console.Write("Ngày sinh không được để trống! Nhập lại (dd/MM/yyyy): ");
+                    continue;
                 }
-                catch (ArgumentOutOfRangeException)
-                {
-                    Console.Write("Giá trị ngày sinh không hợp lệ! Nhập lại (dd/MM/yyyy): ");
-                }
+
+                Console.Write("Sai định dạng hoặc ngày không hợp lệ! Nhập lại (dd/MM/yyyy): ");
 
             }
         }
