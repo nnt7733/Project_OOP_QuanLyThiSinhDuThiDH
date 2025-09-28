@@ -1,22 +1,26 @@
-﻿using System;
+using System;
+
 namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
 {
-    public abstract class DiemThiBacBuoc:IDiemThi
+    public class DiemKhoiC : IDiemThi
     {
-        public double Toan { get; set; }
         public double Van { get; set; }
-        public double Anh { get; set; }
-        public virtual void NhapDiem()
+        public double Su { get; set; }
+        public double Dia { get; set; }
+
+        public void NhapDiem()
         {
-            Toan = NhapDiemMon("Toán");
             Van = NhapDiemMon("Văn");
-            Anh = NhapDiemMon("Anh");
+            Su = NhapDiemMon("Sử");
+            Dia = NhapDiemMon("Địa");
         }
-        public virtual void InDiem()
+
+        public void InDiem()
         {
-            Console.WriteLine($"Toán: {Toan} | Văn: {Van} | Anh: {Anh}");
+            Console.WriteLine($"Văn: {Van} | Sử: {Su} | Địa: {Dia}");
         }
-        protected static double NhapDiemMon(string tenMon)
+
+        private static double NhapDiemMon(string tenMon)
         {
             double diem;
             Console.Write($"Nhập điểm {tenMon}: ");

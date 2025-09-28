@@ -3,10 +3,10 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
 {
     public class ThiSinhKhoiA : ThongTinThiSinh, IThiKhoi
     {
-        public DiemThiKHTN Diem { get; set; }
+        public DiemKhoiA Diem { get; set; }
         public ThiSinhKhoiA()
         {
-            Diem = new DiemThiKHTN();
+            Diem = new DiemKhoiA();
         }
         public void Nhap()
         {
