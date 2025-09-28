@@ -10,6 +10,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
         public string HoTen { get; set; }
         public DateTime NgaySinh { get; set; }
         public string DanToc { get; set; }
+        public string TonGiao { get; set; }
         public string GioiTinh { get; set; }
         public string NoiSinh { get; set; }
         public string DiaChi { get; set; }
@@ -29,6 +30,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             string hoTen,
             DateTime ngaySinh,
             string danToc,
+            string tonGiao,
             string gioiTinh,
             string noiSinh,
             string diaChi,
@@ -43,6 +45,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             HoTen = hoTen;
             NgaySinh = ngaySinh;
             DanToc = danToc;
+            TonGiao = tonGiao;
             GioiTinh = gioiTinh;
             NoiSinh = noiSinh;
             DiaChi = diaChi;
@@ -62,6 +65,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             NgaySinh = NhapNgaySinh();
 
             DanToc = NhapChuoiKhongRong("Nhập dân tộc: ");
+            TonGiao = NhapChuoiKhongRong("Nhập tôn giáo: ");
             GioiTinh = NhapGioiTinh();
             NoiSinh = NhapChuoiKhongRong("Nhập nơi sinh: ");
             DiaChi = NhapChuoiKhongRong("Nhập địa chỉ: ");
@@ -83,6 +87,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             Console.WriteLine("Ngày sinh       : {0:dd/MM/yyyy}", NgaySinh);
             Console.WriteLine("Giới tính       : {0}", GioiTinh);
             Console.WriteLine("Dân tộc         : {0}", DanToc);
+            Console.WriteLine("Tôn giáo        : {0}", TonGiao);
             Console.WriteLine("Nơi sinh        : {0}", NoiSinh);
             Console.WriteLine("Địa chỉ         : {0}", DiaChi);
             Console.WriteLine("Số căn cước     : {0}", SoCanCuoc);
