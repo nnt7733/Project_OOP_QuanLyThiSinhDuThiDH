@@ -272,7 +272,6 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                 }
 
                 Console.WriteLine($"Đã lưu danh sách thí sinh vào: {filePath}");
-                Console.WriteLine(FileStructureGuidance);
             }
             catch (Exception ex)
             {
@@ -298,7 +297,6 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             {
                 using (var reader = new StreamReader(filePath, Encoding.UTF8))
                 {
-                    Console.WriteLine(FileStructureGuidance);
 
                     var header = reader.ReadLine();
                     if (header == null)
