@@ -8,7 +8,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
     {
         public string SoBD { get; set; }
         public string HoTen { get; set; }
-        public DateTime NgaySinh { get; set; }
+        public NgayThangNam NgaySinh { get; set; }
         public string DanToc { get; set; }
         public string TonGiao { get; set; }
         public string GioiTinh { get; set; }
@@ -28,7 +28,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
         protected ThongTinThiSinh(
             string soBD,
             string hoTen,
-            DateTime ngaySinh,
+            NgayThangNam ngaySinh,
             string danToc,
             string tonGiao,
             string gioiTinh,
@@ -84,7 +84,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             Console.WriteLine("====================================");
             Console.WriteLine("Số báo danh     : {0}", SoBD);
             Console.WriteLine("Họ và tên       : {0}", HoTen);
-            Console.WriteLine("Ngày sinh       : {0:dd/MM/yyyy}", NgaySinh);
+            Console.WriteLine("Ngày sinh       : {0}", NgaySinh);
             Console.WriteLine("Giới tính       : {0}", GioiTinh);
             Console.WriteLine("Dân tộc         : {0}", DanToc);
             Console.WriteLine("Tôn giáo        : {0}", TonGiao);
@@ -167,23 +167,27 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             return ketQua.Trim();
         }
 
-        private static DateTime NhapNgaySinh()
+        private static NgayThangNam NhapNgaySinh()
         {
             Console.Write("Nhập ngày sinh (dd/MM/yyyy): ");
-            DateTime ngaySinh;
             string giaTri;
             while (true)
             {
                 giaTri = Console.ReadLine();
-                if (DateTime.TryParseExact(giaTri, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out ngaySinh))
+                try
                 {
-                    break;
+                    return NgayThangNam.Parse(giaTri);
+                }
+                catch (FormatException)
+                {
+                    Console.Write("Sai định dạng! Nhập lại (dd/MM/yyyy): ");
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    Console.Write("Giá trị ngày sinh không hợp lệ! Nhập lại (dd/MM/yyyy): ");
                 }
 
-                Console.Write("Sai định dạng! Nhập lại (dd/MM/yyyy): ");
             }
-
-            return ngaySinh;
         }
 
         private static string NhapGioiTinh()
