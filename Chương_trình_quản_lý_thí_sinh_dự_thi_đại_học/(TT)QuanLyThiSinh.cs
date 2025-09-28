@@ -77,27 +77,49 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                 }
             }
 
-            CapNhatThongTinCoBan(thiSinhHienTai, thongTinCapNhat);
-
-            if (thiSinhHienTai is ThiSinhKhoiA thiSinhKhoiA && thongTinCapNhat is ThiSinhKhoiA capNhatKhoiA)
+            if (thiSinhHienTai is ThiSinhKhoiA thiSinhKhoiA)
             {
+                if (!(thongTinCapNhat is ThiSinhKhoiA capNhatKhoiA))
+                {
+                    return false;
+                }
+
+                CapNhatThongTinCoBan(thiSinhKhoiA, capNhatKhoiA);
                 CapNhatDiemKhoiA(thiSinhKhoiA, capNhatKhoiA);
                 return true;
             }
 
-            if (thiSinhHienTai is ThiSinhKhoiB thiSinhKhoiB && thongTinCapNhat is ThiSinhKhoiB capNhatKhoiB)
+            if (thiSinhHienTai is ThiSinhKhoiB thiSinhKhoiB)
             {
+                if (!(thongTinCapNhat is ThiSinhKhoiB capNhatKhoiB))
+                {
+                    return false;
+                }
+
+                CapNhatThongTinCoBan(thiSinhKhoiB, capNhatKhoiB);
                 CapNhatDiemKhoiB(thiSinhKhoiB, capNhatKhoiB);
                 return true;
             }
 
-            if (thiSinhHienTai is ThiSinhKhoiC thiSinhKhoiC && thongTinCapNhat is ThiSinhKhoiC capNhatKhoiC)
+            if (thiSinhHienTai is ThiSinhKhoiC thiSinhKhoiC)
             {
+                if (!(thongTinCapNhat is ThiSinhKhoiC capNhatKhoiC))
+                {
+                    return false;
+                }
+
+                CapNhatThongTinCoBan(thiSinhKhoiC, capNhatKhoiC);
                 CapNhatDiemKhoiC(thiSinhKhoiC, capNhatKhoiC);
                 return true;
             }
 
-            return false;
+            if (thongTinCapNhat.GetType() != thiSinhHienTai.GetType())
+            {
+                return false;
+            }
+
+            CapNhatThongTinCoBan(thiSinhHienTai, thongTinCapNhat);
+            return true;
         }
 
         public bool XoaThiSinh(string soBD)
