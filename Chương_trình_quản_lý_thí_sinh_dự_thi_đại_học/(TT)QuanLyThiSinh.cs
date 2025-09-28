@@ -13,7 +13,8 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             "Khoi|SoBD|HoTen|NgaySinh|DanToc|TonGiao|GioiTinh|NoiSinh|DiaChi|SoCanCuoc|SoDienThoai|Email|KhuVuc|DoiTuongUuTien|HoiDongThi|Mon1|Mon2|Mon3\n" +
             "Khối A: Mon1=Toán, Mon2=Lý, Mon3=Hóa\n" +
             "Khối B: Mon1=Toán, Mon2=Hóa, Mon3=Sinh\n" +
-            "Khối C: Mon1=Văn, Mon2=Sử, Mon3=Địa";
+            "Khối C: Mon1=Văn, Mon2=Sử, Mon3=Địa\n" +
+            "Điểm mỗi môn: giá trị từ 0 đến 10, dùng dấu chấm hoặc dấu phẩy cho phần thập phân (ví dụ: 8.5 hoặc 8,5).";
         public QuanLyThiSinh()
         {
             danhSachThiSinh = new List<ThongTinThiSinh>();
@@ -483,13 +484,14 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                 throw new FormatException($"Thiếu {tenMon}. {FileStructureGuidance}");
             }
 
-            if (double.TryParse(giaTri, NumberStyles.Float, CultureInfo.InvariantCulture, out var diem))
+            if (double.TryParse(giaTri, NumberStyles.Float, CultureInfo.InvariantCulture, out var diem) ||
+                double.TryParse(giaTri, NumberStyles.Float, CultureInfo.GetCultureInfo("vi-VN"), out diem))
             {
-                return diem;
-            }
+                if (diem < 0 || diem > 10)
+                {
+                    throw new FormatException($"{tenMon} cho khối {khoi} phải nằm trong khoảng 0 đến 10. {FileStructureGuidance}");
+                }
 
-            if (double.TryParse(giaTri, NumberStyles.Float, CultureInfo.GetCultureInfo("vi-VN"), out diem))
-            {
                 return diem;
             }
 
