@@ -228,7 +228,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
 
                         fields[1] = NormalizeText(ts.SoBD);
                         fields[2] = NormalizeText(ts.HoTen);
-                        fields[3] = ts.NgaySinh.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
+                        fields[3] = ts.NgaySinh.ToString();
                         fields[4] = NormalizeText(ts.DanToc);
                         fields[5] = NormalizeText(ts.TonGiao);
                         fields[6] = NormalizeText(ts.GioiTinh);
@@ -363,7 +363,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                                 throw new FormatException("Thiếu đối tượng ưu tiên");
                             }
 
-                            var ngaySinh = DateTime.ParseExact(ngaySinhStr, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                            var ngaySinh = NgayThangNam.Parse(ngaySinhStr);
                             var doiTuongUuTien = int.Parse(doiTuongStr, CultureInfo.InvariantCulture);
 
                             ThongTinThiSinh thiSinh = null;
