@@ -201,7 +201,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                 {
                     "Khoi", "SoBD", "HoTen", "NgaySinh", "DanToc", "GioiTinh", "NoiSinh", "DiaChi",
                     "SoCanCuoc", "SoDienThoai", "Email", "KhuVuc", "DoiTuongUuTien", "HoiDongThi",
-                    "Toan", "Van", "Anh", "Ly", "Hoa", "Sinh", "Su", "Dia", "GDCD"
+                    "Toan", "Ly", "Hoa", "Sinh", "Van", "Su", "Dia"
                 };
 
                 using (var writer = new StreamWriter(filePath, false, Encoding.UTF8))
@@ -235,52 +235,39 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                         fields[13] = NormalizeText(ts.HoiDongThi);
 
                         double? toan = null;
-                        double? van = null;
-                        double? anh = null;
                         double? ly = null;
                         double? hoa = null;
                         double? sinh = null;
+                        double? van = null;
                         double? su = null;
                         double? dia = null;
-                        double? gdcd = null;
 
                         switch (ts)
                         {
                             case ThiSinhKhoiA khoiA:
                                 toan = khoiA.Diem.Toan;
-                                van = khoiA.Diem.Van;
-                                anh = khoiA.Diem.Anh;
                                 ly = khoiA.Diem.Ly;
                                 hoa = khoiA.Diem.Hoa;
-                                sinh = khoiA.Diem.Sinh;
                                 break;
                             case ThiSinhKhoiB khoiB:
                                 toan = khoiB.Diem.Toan;
-                                van = khoiB.Diem.Van;
-                                anh = khoiB.Diem.Anh;
-                                ly = khoiB.Diem.Ly;
                                 hoa = khoiB.Diem.Hoa;
                                 sinh = khoiB.Diem.Sinh;
                                 break;
                             case ThiSinhKhoiC khoiC:
-                                toan = khoiC.Diem.Toan;
                                 van = khoiC.Diem.Van;
-                                anh = khoiC.Diem.Anh;
                                 su = khoiC.Diem.Su;
                                 dia = khoiC.Diem.Dia;
-                                gdcd = khoiC.Diem.GDCD;
                                 break;
                         }
 
                         fields[14] = FormatScore(toan);
-                        fields[15] = FormatScore(van);
-                        fields[16] = FormatScore(anh);
-                        fields[17] = FormatScore(ly);
-                        fields[18] = FormatScore(hoa);
-                        fields[19] = FormatScore(sinh);
-                        fields[20] = FormatScore(su);
-                        fields[21] = FormatScore(dia);
-                        fields[22] = FormatScore(gdcd);
+                        fields[15] = FormatScore(ly);
+                        fields[16] = FormatScore(hoa);
+                        fields[17] = FormatScore(sinh);
+                        fields[18] = FormatScore(van);
+                        fields[19] = FormatScore(su);
+                        fields[20] = FormatScore(dia);
 
                         writer.WriteLine(string.Join("|", fields));
                     }
@@ -335,7 +322,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                         try
                         {
                             var parts = line.Split('|');
-                            if (parts.Length < 23)
+                            if (parts.Length < 21)
                             {
                                 throw new FormatException("Không đủ cột dữ liệu");
                             }
@@ -378,42 +365,29 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                             var ngaySinh = DateTime.ParseExact(ngaySinhStr, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                             var doiTuongUuTien = int.Parse(doiTuongStr, CultureInfo.InvariantCulture);
 
-                            var toan = ParseDiem(parts[14], "điểm Toán");
-                            var van = ParseDiem(parts[15], "điểm Văn");
-                            var anh = ParseDiem(parts[16], "điểm Anh");
-
                             ThongTinThiSinh thiSinh = null;
 
                             switch (khoi.Trim().ToUpperInvariant())
                             {
                                 case "A":
                                     var thiSinhA = new ThiSinhKhoiA();
-                                    thiSinhA.Diem.Toan = toan;
-                                    thiSinhA.Diem.Van = van;
-                                    thiSinhA.Diem.Anh = anh;
-                                    thiSinhA.Diem.Ly = ParseDiem(parts[17], "điểm Lý");
-                                    thiSinhA.Diem.Hoa = ParseDiem(parts[18], "điểm Hóa");
-                                    thiSinhA.Diem.Sinh = ParseDiem(parts[19], "điểm Sinh");
+                                    thiSinhA.Diem.Toan = ParseDiem(parts[14], "điểm Toán");
+                                    thiSinhA.Diem.Ly = ParseDiem(parts[15], "điểm Lý");
+                                    thiSinhA.Diem.Hoa = ParseDiem(parts[16], "điểm Hóa");
                                     thiSinh = thiSinhA;
                                     break;
                                 case "B":
                                     var thiSinhB = new ThiSinhKhoiB();
-                                    thiSinhB.Diem.Toan = toan;
-                                    thiSinhB.Diem.Van = van;
-                                    thiSinhB.Diem.Anh = anh;
-                                    thiSinhB.Diem.Ly = ParseDiem(parts[17], "điểm Lý");
-                                    thiSinhB.Diem.Hoa = ParseDiem(parts[18], "điểm Hóa");
-                                    thiSinhB.Diem.Sinh = ParseDiem(parts[19], "điểm Sinh");
+                                    thiSinhB.Diem.Toan = ParseDiem(parts[14], "điểm Toán");
+                                    thiSinhB.Diem.Hoa = ParseDiem(parts[16], "điểm Hóa");
+                                    thiSinhB.Diem.Sinh = ParseDiem(parts[17], "điểm Sinh");
                                     thiSinh = thiSinhB;
                                     break;
                                 case "C":
                                     var thiSinhC = new ThiSinhKhoiC();
-                                    thiSinhC.Diem.Toan = toan;
-                                    thiSinhC.Diem.Van = van;
-                                    thiSinhC.Diem.Anh = anh;
-                                    thiSinhC.Diem.Su = ParseDiem(parts[20], "điểm Sử");
-                                    thiSinhC.Diem.Dia = ParseDiem(parts[21], "điểm Địa");
-                                    thiSinhC.Diem.GDCD = ParseDiem(parts[22], "điểm GDCD");
+                                    thiSinhC.Diem.Van = ParseDiem(parts[18], "điểm Văn");
+                                    thiSinhC.Diem.Su = ParseDiem(parts[19], "điểm Sử");
+                                    thiSinhC.Diem.Dia = ParseDiem(parts[20], "điểm Địa");
                                     thiSinh = thiSinhC;
                                     break;
                                 default:
@@ -481,31 +455,22 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
         private static void CapNhatDiemKhoiA(ThiSinhKhoiA dich, ThiSinhKhoiA nguon)
         {
             dich.Diem.Toan = nguon.Diem.Toan;
-            dich.Diem.Van = nguon.Diem.Van;
-            dich.Diem.Anh = nguon.Diem.Anh;
             dich.Diem.Ly = nguon.Diem.Ly;
             dich.Diem.Hoa = nguon.Diem.Hoa;
-            dich.Diem.Sinh = nguon.Diem.Sinh;
         }
 
         private static void CapNhatDiemKhoiB(ThiSinhKhoiB dich, ThiSinhKhoiB nguon)
         {
             dich.Diem.Toan = nguon.Diem.Toan;
-            dich.Diem.Van = nguon.Diem.Van;
-            dich.Diem.Anh = nguon.Diem.Anh;
-            dich.Diem.Ly = nguon.Diem.Ly;
             dich.Diem.Hoa = nguon.Diem.Hoa;
             dich.Diem.Sinh = nguon.Diem.Sinh;
         }
 
         private static void CapNhatDiemKhoiC(ThiSinhKhoiC dich, ThiSinhKhoiC nguon)
         {
-            dich.Diem.Toan = nguon.Diem.Toan;
             dich.Diem.Van = nguon.Diem.Van;
-            dich.Diem.Anh = nguon.Diem.Anh;
             dich.Diem.Su = nguon.Diem.Su;
             dich.Diem.Dia = nguon.Diem.Dia;
-            dich.Diem.GDCD = nguon.Diem.GDCD;
         }
 
         private static double ParseDiem(string giaTri, string tenMon)

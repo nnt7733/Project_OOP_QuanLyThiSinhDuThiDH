@@ -44,9 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="%28Diem%29DiemThiBacBuoc.cs" />
-    <Compile Include="%28Diem%29DiemThiKHTN.cs" />
-    <Compile Include="%28Diem%29DiemThiKHXH.cs" />
+    <Compile Include="%28Diem%29DiemKhoiA.cs" />
+    <Compile Include="%28Diem%29DiemKhoiB.cs" />
+    <Compile Include="%28Diem%29DiemKhoiC.cs" />
     <Compile Include="%28TS%29IThiKhoi.cs" />
     <Compile Include="%28Diem%29IDiemThi.cs" />
     <Compile Include="Program.cs" />
