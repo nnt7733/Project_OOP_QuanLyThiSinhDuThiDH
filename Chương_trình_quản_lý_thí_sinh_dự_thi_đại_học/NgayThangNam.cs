@@ -1,9 +1,8 @@
 using System;
-using System.Globalization;
 
 namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
 {
-    public sealed class NgayThangNam : IEquatable<NgayThangNam>
+    public sealed class NgayThangNam
     {
         public int Ngay { get; }
         public int Thang { get; }
@@ -21,11 +20,6 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             Nam = nam;
         }
 
-        public static NgayThangNam FromDateTime(DateTime value)
-        {
-            return new NgayThangNam(value.Day, value.Month, value.Year);
-        }
-
         public static NgayThangNam Parse(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
@@ -33,47 +27,27 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                 throw new FormatException("Ngày sinh không được để trống.");
             }
 
-            if (!DateTime.TryParseExact(value.Trim(), "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out var date))
+            var parts = value.Trim().Split('/');
+            if (parts.Length != 3)
             {
                 throw new FormatException("Ngày sinh phải theo định dạng dd/MM/yyyy.");
             }
 
-            return FromDateTime(date);
-        }
+            var ngayPhan = parts[0].Trim();
+            var thangPhan = parts[1].Trim();
+            var namPhan = parts[2].Trim();
 
-        public DateTime ToDateTime()
-        {
-            return new DateTime(Nam, Thang, Ngay);
+            if (!int.TryParse(ngayPhan, out var ngay) || !int.TryParse(thangPhan, out var thang) || !int.TryParse(namPhan, out var nam))
+            {
+                throw new FormatException("Ngày sinh phải theo định dạng dd/MM/yyyy.");
+            }
+
+            return new NgayThangNam(ngay, thang, nam);
         }
 
         public override string ToString()
         {
             return $"{Ngay:D2}/{Thang:D2}/{Nam:D4}";
-        }
-
-        public bool Equals(NgayThangNam other)
-        {
-            if (ReferenceEquals(null, other))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, other))
-            {
-                return true;
-            }
-
-            return Ngay == other.Ngay && Thang == other.Thang && Nam == other.Nam;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return Equals(obj as NgayThangNam);
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(Ngay, Thang, Nam);
         }
 
         private static bool IsValid(int ngay, int thang, int nam)
