@@ -385,7 +385,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                                 throw new FormatException("Thiếu đối tượng ưu tiên");
                             }
 
-                            var ngaySinh = NgayThangNam.Parse(ngaySinhStr);
+                            var ngaySinh = DocNgaySinhTuChuoi(ngaySinhStr);
                             var doiTuongUuTien = int.Parse(doiTuongStr, CultureInfo.InvariantCulture);
 
                             ThongTinThiSinh thiSinh = null;
@@ -497,6 +497,37 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             dich.Diem.Van = nguon.Diem.Van;
             dich.Diem.Su = nguon.Diem.Su;
             dich.Diem.Dia = nguon.Diem.Dia;
+        }
+
+        private static NgayThangNam DocNgaySinhTuChuoi(string giaTri)
+        {
+            if (string.IsNullOrWhiteSpace(giaTri))
+            {
+                throw new FormatException("Thiếu ngày sinh.");
+            }
+
+            var parts = giaTri
+                .Split(new[] { '/', '-', '.', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (parts.Length != 3)
+            {
+                throw new FormatException("Ngày sinh phải gồm 3 phần: ngày/tháng/năm (ví dụ 01/02/2003).");
+            }
+
+            if (!int.TryParse(parts[0], NumberStyles.Integer, CultureInfo.InvariantCulture, out var ngay) ||
+                !int.TryParse(parts[1], NumberStyles.Integer, CultureInfo.InvariantCulture, out var thang) ||
+                !int.TryParse(parts[2], NumberStyles.Integer, CultureInfo.InvariantCulture, out var nam))
+            {
+                throw new FormatException("Ngày sinh chỉ được phép chứa chữ số.");
+            }
+
+            try
+            {
+                return new NgayThangNam(ngay, thang, nam);
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                throw new FormatException("Giá trị ngày sinh không hợp lệ.");
+            }
         }
 
         private static double ParseDiem(string giaTri, string tenMon, string khoi)
