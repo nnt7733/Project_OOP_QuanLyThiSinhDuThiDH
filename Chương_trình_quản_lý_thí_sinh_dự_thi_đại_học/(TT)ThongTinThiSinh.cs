@@ -169,24 +169,35 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
 
         private static NgayThangNam NhapNgaySinh()
         {
-            Console.Write("Nhập ngày sinh (dd/MM/yyyy): ");
-            string giaTri;
             while (true)
             {
-                giaTri = Console.ReadLine();
+                var ngay = NhapSoNguyen("Nhập ngày: ");
+                var thang = NhapSoNguyen("Nhập tháng: ");
+                var nam = NhapSoNguyen("Nhập năm: ");
+
                 try
                 {
-                    return NgayThangNam.Parse(giaTri);
-                }
-                catch (FormatException)
-                {
-                    Console.Write("Sai định dạng! Nhập lại (dd/MM/yyyy): ");
+                    return new NgayThangNam(ngay, thang, nam);
                 }
                 catch (ArgumentOutOfRangeException)
                 {
-                    Console.Write("Giá trị ngày sinh không hợp lệ! Nhập lại (dd/MM/yyyy): ");
+                    Console.WriteLine("Ngày sinh không hợp lệ, vui lòng nhập lại.");
+                }
+            }
+        }
+
+        private static int NhapSoNguyen(string thongDiep)
+        {
+            while (true)
+            {
+                Console.Write(thongDiep);
+                var duLieu = Console.ReadLine();
+                if (int.TryParse(duLieu, NumberStyles.Integer, CultureInfo.InvariantCulture, out var giaTri))
+                {
+                    return giaTri;
                 }
 
+                Console.WriteLine("Giá trị phải là số nguyên. Vui lòng nhập lại.");
             }
         }
 
