@@ -22,14 +22,8 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
 
         private static double NhapDiemMon(string tenMon)
         {
-            double diem;
             Console.Write($"Nhập điểm {tenMon}: ");
-            while (!double.TryParse(Console.ReadLine(), out diem) || diem < 0 || diem > 10)
-            {
-                Console.Write($"Điểm không hợp lệ! Nhập lại điểm {tenMon} (0-10): ");
-            }
-
-            return Math.Round(diem, 2);
+            return DiemThiInputHelper.ReadScoreFromConsole(tenMon);
         }
     }
 }

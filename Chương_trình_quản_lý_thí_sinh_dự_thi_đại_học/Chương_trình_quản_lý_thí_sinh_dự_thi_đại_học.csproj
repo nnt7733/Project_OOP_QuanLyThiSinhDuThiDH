@@ -47,6 +47,7 @@
     <Compile Include="%28Diem%29DiemKhoiA.cs" />
     <Compile Include="%28Diem%29DiemKhoiB.cs" />
     <Compile Include="%28Diem%29DiemKhoiC.cs" />
+    <Compile Include="DiemThiInputHelper.cs" />
     <Compile Include="%28TS%29IThiKhoi.cs" />
     <Compile Include="%28Diem%29IDiemThi.cs" />
     <Compile Include="Program.cs" />
