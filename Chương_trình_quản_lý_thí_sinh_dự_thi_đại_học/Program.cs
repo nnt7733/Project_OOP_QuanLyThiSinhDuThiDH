@@ -285,8 +285,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             Console.WriteLine("===== KẾT QUẢ TÌM KIẾM =====");
             foreach (var ts in ketQua)
             {
-                ts.InThongTin();
-                Console.WriteLine();
+                InThongTinThiSinhDayDu(ts);
             }
         }
 
@@ -310,7 +309,25 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             }
 
             Console.WriteLine("===== KẾT QUẢ TÌM KIẾM =====");
-            thiSinh.InThongTin();
+            InThongTinThiSinhDayDu(thiSinh);
+        }
+
+        private static void InThongTinThiSinhDayDu(ThongTinThiSinh thiSinh)
+        {
+            if (thiSinh == null)
+            {
+                return;
+            }
+
+            if (thiSinh is IThiKhoi thiKhoi)
+            {
+                thiKhoi.In();
+            }
+            else
+            {
+                thiSinh.InThongTin();
+            }
+
             Console.WriteLine();
         }
 
