@@ -1,28 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.DiemKhoiA">
-    <Position X="9.75" Y="3.75" Width="1.5" />
+    <Position X="11.25" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAACAAAAAAAAIAAAIAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>(Diem)DiemKhoiA.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.DiemKhoiB">
-    <Position X="11.5" Y="3.5" Width="1.5" />
+    <Position X="7" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAgAAAAAEAAAAAIAAAIAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>(Diem)DiemKhoiB.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.DiemKhoiC">
-    <Position X="13.5" Y="3.5" Width="1.5" />
+    <Position X="9.25" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAACAAAAgAAAAAIAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
       <FileName>(Diem)DiemKhoiC.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.DiemThiBase">
-    <Position X="8" Y="3.5" Width="1.5" />
+    <Position X="9.25" Y="3.5" Width="1.5" />
     <NestedTypes>
       <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.DiemThiBase.MonHocDescriptor" Collapsed="true">
         <TypeIdentifier>
@@ -37,7 +37,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.ThiSinhKhoiA">
-    <Position X="4" Y="1.5" Width="1.5" />
+    <Position X="4.25" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEAAAAAABAAAAAAAAAIAAAEAAAAAAAAAgAAABACA=</HashCode>
       <FileName>(TS)ThiSinhKhoiA.cs</FileName>
@@ -45,7 +45,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.ThiSinhKhoiB">
-    <Position X="5.75" Y="1.5" Width="1.5" />
+    <Position X="4.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEAAAAAABAAAAAAAAAIAAAEAAAAAAAAAgAAABACA=</HashCode>
       <FileName>(TS)ThiSinhKhoiB.cs</FileName>
@@ -53,7 +53,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.ThiSinhKhoiC">
-    <Position X="0.5" Y="1.5" Width="1.5" />
+    <Position X="0.5" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEAAAAAABAAAAAAAAAIAAAEAAAAAAAAAgAAABACA=</HashCode>
       <FileName>(TS)ThiSinhKhoiC.cs</FileName>
@@ -61,7 +61,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.QuanLyThiSinh">
-    <Position X="15.25" Y="1" Width="1.5" />
+    <Position X="6.5" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CABAAQAAQAgAAIAACAAAAIAsACAAAAAAAAAgAAAACQQ=</HashCode>
       <FileName>(TT)QuanLyThiSinh.cs</FileName>
@@ -75,7 +75,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.NgayThangNam">
-    <Position X="7.5" Y="0.75" Width="1.5" />
+    <Position X="8.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAEAAgAAACAAAAAAAAQAAAAAAAAAAA=</HashCode>
       <FileName>NgayThangNam.cs</FileName>
@@ -89,7 +89,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.IThiKhoi">
-    <Position X="10.25" Y="1" Width="1.5" />
+    <Position X="12.25" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEAAAAAABAAAAAAAAAIAAAEAAAAAAAAAgAAAAACA=</HashCode>
       <FileName>(TS)IThiKhoi.cs</FileName>
