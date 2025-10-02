@@ -4,7 +4,21 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
 {
     public abstract class DiemThiBase : IDiemThi
     {
-        protected abstract (string TenMon, Func<double> Getter, Action<double> Setter)[] MonHoc { get; }
+        protected class MonHocDescriptor
+        {
+            public MonHocDescriptor(string tenMon, Func<double> getter, Action<double> setter)
+            {
+                TenMon = tenMon;
+                Getter = getter;
+                Setter = setter;
+            }
+
+            public string TenMon { get; }
+            public Func<double> Getter { get; }
+            public Action<double> Setter { get; }
+        }
+
+        protected abstract MonHocDescriptor[] MonHoc { get; }
 
         public void NhapDiem()
         {

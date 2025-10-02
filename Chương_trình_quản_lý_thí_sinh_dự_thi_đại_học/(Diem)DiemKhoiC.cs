@@ -8,11 +8,17 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
         public double Su { get; set; }
         public double Dia { get; set; }
 
-        protected override (string TenMon, Func<double> Getter, Action<double> Setter)[] MonHoc => new[]
+        protected override MonHocDescriptor[] MonHoc
         {
-            ("Văn", () => Van, value => Van = value),
-            ("Sử", () => Su, value => Su = value),
-            ("Địa", () => Dia, value => Dia = value),
-        };
+            get
+            {
+                return new MonHocDescriptor[]
+                {
+                    new MonHocDescriptor("Văn", () => Van, value => Van = value),
+                    new MonHocDescriptor("Sử", () => Su, value => Su = value),
+                    new MonHocDescriptor("Địa", () => Dia, value => Dia = value),
+                };
+            }
+        }
     }
 }
