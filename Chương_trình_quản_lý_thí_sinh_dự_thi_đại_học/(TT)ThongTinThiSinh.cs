@@ -171,6 +171,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
         {
             while (true)
             {
+                Console.WriteLine("Nhập ngày tháng năm sinh");
                 var ngay = NhapSoNguyen("Nhập ngày: ");
                 var thang = NhapSoNguyen("Nhập tháng: ");
                 var nam = NhapSoNguyen("Nhập năm: ");

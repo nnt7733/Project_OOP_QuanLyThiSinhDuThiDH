@@ -293,7 +293,6 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                             CapNhatGiaTri(ql, soBD, ref daCapNhat, "hội đồng thi", ts => ts.HoiDongThi = hoiDongMoi);
                             break;
                         }
-                        break;
                     default:
                         if (!CapNhatDiemThi(ql, ref soBD, thiSinhHienTai, luaChon, ref daCapNhat))
                         {
