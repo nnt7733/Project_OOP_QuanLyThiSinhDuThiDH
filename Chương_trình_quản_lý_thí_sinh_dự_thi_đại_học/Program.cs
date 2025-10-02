@@ -79,17 +79,28 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
         private static void HienThiMenu()
         {
             Console.WriteLine("===== CHƯƠNG TRÌNH QUẢN LÝ THÍ SINH =====");
-            Console.WriteLine("1. Thêm thí sinh khối A");
-            Console.WriteLine("2. Thêm thí sinh khối B");
-            Console.WriteLine("3. Thêm thí sinh khối C");
-            Console.WriteLine("4. Hiển thị danh sách thí sinh");
-            Console.WriteLine("5. Thống kê số lượng theo khối");
-            Console.WriteLine("6. Tìm thủ khoa từng khối");
-            Console.WriteLine("7. Tìm kiếm thí sinh theo họ tên");
-            Console.WriteLine("8. Tải dữ liệu từ tệp");
-            Console.WriteLine("9. Lưu dữ liệu ra tệp");
-            Console.WriteLine("10. Cập nhật thông tin thí sinh");
-            Console.WriteLine("11. Xóa thí sinh");
+            Console.WriteLine("------------------------------------------");
+
+            Console.WriteLine("Thêm / sửa / xóa thí sinh:");
+            Console.WriteLine("  1. Thêm thí sinh khối A");
+            Console.WriteLine("  2. Thêm thí sinh khối B");
+            Console.WriteLine("  3. Thêm thí sinh khối C");
+            Console.WriteLine(" 10. Cập nhật thông tin thí sinh");
+            Console.WriteLine(" 11. Xóa thí sinh");
+
+            Console.WriteLine();
+            Console.WriteLine("Quản lý thông tin thí sinh:");
+            Console.WriteLine("  4. Hiển thị danh sách thí sinh");
+            Console.WriteLine("  8. Tải dữ liệu từ tệp");
+            Console.WriteLine("  9. Lưu dữ liệu ra tệp");
+
+            Console.WriteLine();
+            Console.WriteLine("Tìm kiếm và thống kê:");
+            Console.WriteLine("  5. Thống kê số lượng theo khối");
+            Console.WriteLine("  6. Tìm thủ khoa từng khối");
+            Console.WriteLine("  7. Tìm kiếm thí sinh theo họ tên");
+
+            Console.WriteLine();
             Console.WriteLine("0. Thoát");
         }
 
