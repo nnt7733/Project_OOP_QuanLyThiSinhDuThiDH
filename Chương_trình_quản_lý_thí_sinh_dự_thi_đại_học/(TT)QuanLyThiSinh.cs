@@ -80,8 +80,8 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
 
             if (!string.Equals(soBDTruocKhiCapNhat, thiSinhHienTai.SoBD, StringComparison.Ordinal))
             {
-                var thiSinhTrung = TimTheoSoBD(thiSinhHienTai.SoBD);
-                if (thiSinhTrung != null && !ReferenceEquals(thiSinhTrung, thiSinhHienTai))
+                var coSoBDTrung = danhSachThiSinh.Any(ts => !ReferenceEquals(ts, thiSinhHienTai) && ts.SoBD == thiSinhHienTai.SoBD);
+                if (coSoBDTrung)
                 {
                     thiSinhHienTai.SoBD = soBDTruocKhiCapNhat;
                     return false;
