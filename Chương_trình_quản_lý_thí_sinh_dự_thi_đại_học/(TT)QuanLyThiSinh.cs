@@ -141,19 +141,40 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             if (thuKhoaA == null) Console.WriteLine("Không có thủ khoa khối A");
             else
             {
-                thuKhoaA.InThongTin();
+                if (thuKhoaA is IThiKhoi thiKhoiA)
+                {
+                    thiKhoiA.In();
+                }
+                else
+                {
+                    thuKhoaA.InThongTin();
+                }
                 Console.WriteLine($"Tổng điểm:{diemCaoNhatA}");
             }
             if (thuKhoaB == null) Console.WriteLine("Không có thủ khoa khối B");
             else
             {
-                thuKhoaB.InThongTin();
+                if (thuKhoaB is IThiKhoi thiKhoiB)
+                {
+                    thiKhoiB.In();
+                }
+                else
+                {
+                    thuKhoaB.InThongTin();
+                }
                 Console.WriteLine($"Tổng điểm:{diemCaoNhatB}");
             }
             if (thuKhoaC == null) Console.WriteLine("Không có thủ khoa khối C");
             else
             {
-                thuKhoaC.InThongTin();
+                if (thuKhoaC is IThiKhoi thiKhoiC)
+                {
+                    thiKhoiC.In();
+                }
+                else
+                {
+                    thuKhoaC.InThongTin();
+                }
                 Console.WriteLine($"Tổng điểm:{diemCaoNhatC}");
             }
         }
