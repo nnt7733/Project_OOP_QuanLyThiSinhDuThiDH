@@ -1,76 +1,95 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.DiemThiBacBuoc" Collapsed="true">
-    <Position X="2.5" Y="0.5" Width="1.5" />
+  <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.DiemKhoiA">
+    <Position X="9.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAAAAAAABgCAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
-      <FileName>(Diem)DiemThiBacBuoc.cs</FileName>
+      <HashCode>AAAAAAAAAgAACAAAAAAAAIAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>(Diem)DiemKhoiA.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.DiemKhoiB">
+    <Position X="11.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAEAAAAAIAAAIAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>(Diem)DiemKhoiB.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.DiemKhoiC">
+    <Position X="13.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACAAAAgAAAAAIAAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>(Diem)DiemKhoiC.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.DiemThiBase">
+    <Position X="8" Y="3.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.DiemThiBase.MonHocDescriptor" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>(Diem)DiemThiBase.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAAAAAAIgAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>(Diem)DiemThiBase.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.DiemThiKHTN" Collapsed="true">
-    <Position X="5" Y="0.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAABAAACAAEAAAAAAAAAIAAAAAAAAgAAAAAAAA=</HashCode>
-      <FileName>(Diem)DiemThiKHTN.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.DiemThiKHXH" Collapsed="true">
-    <Position X="0.5" Y="1" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAABAAAAAAgAAAAAAAAAAAAAAAAAAggAAAAAAQ=</HashCode>
-      <FileName>(Diem)DiemThiKHXH.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.ThiSinhKhoiA" Collapsed="true">
-    <Position X="1.5" Y="2.75" Width="1.5" />
+  <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.ThiSinhKhoiA">
+    <Position X="4" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEAAAAAABAAAAAAAAAIAAAEAAAAAAAAAgAAABACA=</HashCode>
       <FileName>(TS)ThiSinhKhoiA.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.ThiSinhKhoiB" Collapsed="true">
-    <Position X="3.75" Y="2.75" Width="1.5" />
+  <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.ThiSinhKhoiB">
+    <Position X="5.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEAAAAAABAAAAAAAAAIAAAEAAAAAAAAAgAAABACA=</HashCode>
       <FileName>(TS)ThiSinhKhoiB.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.ThiSinhKhoiC" Collapsed="true">
-    <Position X="6" Y="2.75" Width="1.5" />
+  <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.ThiSinhKhoiC">
+    <Position X="0.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEAAAAAABAAAAAAAAAIAAAEAAAAAAAAAgAAABACA=</HashCode>
       <FileName>(TS)ThiSinhKhoiC.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.QuanLyThiSinh" Collapsed="true">
-    <Position X="10.25" Y="1" Width="1.5" />
+  <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.QuanLyThiSinh">
+    <Position X="15.25" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AABAAAAAAAgAAAAAAAAAAIAoACAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>CABAAQAAQAgAAIAACAAAAIAsACAAAAAAAAAgAAAACQQ=</HashCode>
       <FileName>(TT)QuanLyThiSinh.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.ThongTinThiSinh" Collapsed="true">
-    <Position X="3.75" Y="1.5" Width="1.5" />
+  <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.ThongTinThiSinh">
+    <Position X="2.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>CAAAAAAAACAAEEAQAAABAAIOAQIRAAAAAABAABAAIAI=</HashCode>
+      <HashCode>CAAAAAABQWEAEAAQAgABAQIOAQIQEAAAEABAABAAIBI=</HashCode>
       <FileName>(TT)ThongTinThiSinh.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Interface Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.IDiemThi" Collapsed="true">
-    <Position X="8.25" Y="2.25" Width="1.5" />
+  <Class Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.NgayThangNam">
+    <Position X="7.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAEAAgAAACAAAAAAAAQAAAAAAAAAAA=</HashCode>
+      <FileName>NgayThangNam.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.IDiemThi">
+    <Position X="12.25" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
       <FileName>(Diem)IDiemThi.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.IThiKhoi" Collapsed="true">
-    <Position X="10.25" Y="2.25" Width="1.5" />
+  <Interface Name="Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học.IThiKhoi">
+    <Position X="10.25" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAEAAAAAABAAAAAAAAAIAAAEAAAAAAAAAgAAAAACA=</HashCode>
       <FileName>(TS)IThiKhoi.cs</FileName>
