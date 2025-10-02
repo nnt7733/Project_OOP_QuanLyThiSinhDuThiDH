@@ -201,7 +201,8 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                     "Mon1", "Mon2", "Mon3"
                 };
 
-                using (var writer = new StreamWriter(filePath, false, Encoding.UTF8))
+                // Ghi kèm BOM để Notepad và các trình soạn thảo tương tự hiển thị đúng chữ có dấu.
+                using (var writer = new StreamWriter(filePath, false, new UTF8Encoding(true)))
                 {
                     writer.WriteLine(string.Join("|", headers));
 
