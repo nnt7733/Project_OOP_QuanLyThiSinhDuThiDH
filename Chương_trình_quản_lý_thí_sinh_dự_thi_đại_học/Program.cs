@@ -24,7 +24,51 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             bool thoat = false;
             while (!thoat)
             {
-                HienThiMenu();
+                HienThiMenuChinh();
+                Console.Write("Chọn chức năng: ");
+                string luaChon = Console.ReadLine();
+                Console.WriteLine();
+
+                switch (luaChon)
+                {
+                    case "1":
+                        XuLyMenuThemSuaXoa(ql, filePath);
+                        break;
+                    case "2":
+                        XuLyMenuQuanLyThongTin(ql, filePath);
+                        break;
+                    case "3":
+                        XuLyMenuTimKiemThongKe(ql);
+                        break;
+                    case "0":
+                        thoat = true;
+                        break;
+                    default:
+                        Console.WriteLine("Lựa chọn không hợp lệ. Vui lòng chọn từ 0 đến 3.");
+                        break;
+                }
+
+                Console.WriteLine();
+            }
+        }
+
+        private static void HienThiMenuChinh()
+        {
+            Console.WriteLine("===== CHƯƠNG TRÌNH QUẢN LÝ THÍ SINH =====");
+            Console.WriteLine("------------------------------------------");
+            Console.WriteLine("1. Thêm / sửa / xóa thí sinh");
+            Console.WriteLine("2. Quản lý thông tin thí sinh");
+            Console.WriteLine("3. Tìm kiếm và thống kê");
+            Console.WriteLine();
+            Console.WriteLine("0. Thoát");
+        }
+
+        private static void XuLyMenuThemSuaXoa(QuanLyThiSinh ql, string filePath)
+        {
+            bool quayLai = false;
+            while (!quayLai)
+            {
+                HienThiMenuThemSuaXoa();
                 Console.Write("Chọn chức năng: ");
                 string luaChon = Console.ReadLine();
                 Console.WriteLine();
@@ -41,37 +85,16 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                         ThemThiSinhKhoiC(ql, filePath);
                         break;
                     case "4":
-                        ql.InDanhSach();
-                        break;
-                    case "5":
-                        ql.ThongKeTheoKhoi();
-                        break;
-                    case "6":
-                        ql.TimThuKhoa();
-                        break;
-                    case "7":
-                        TimKiemTheoHoTen(ql);
-                        break;
-                    case "12":
-                        TimKiemTheoSoBaoDanh(ql);
-                        break;
-                    case "8":
-                        ql.TaiTuTxt(filePath);
-                        break;
-                    case "9":
-                        ql.LuuVaoTxt(filePath);
-                        break;
-                    case "10":
                         CapNhatThongTinThiSinh(ql, filePath);
                         break;
-                    case "11":
+                    case "5":
                         XoaThiSinh(ql, filePath);
                         break;
                     case "0":
-                        thoat = true;
+                        quayLai = true;
                         break;
                     default:
-                        Console.WriteLine("Lựa chọn không hợp lệ. Vui lòng chọn từ 0 đến 12.");
+                        Console.WriteLine("Lựa chọn không hợp lệ. Vui lòng chọn từ 0 đến 5.");
                         break;
                 }
 
@@ -79,33 +102,106 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             }
         }
 
-        private static void HienThiMenu()
+        private static void XuLyMenuQuanLyThongTin(QuanLyThiSinh ql, string filePath)
         {
-            Console.WriteLine("===== CHƯƠNG TRÌNH QUẢN LÝ THÍ SINH =====");
-            Console.WriteLine("------------------------------------------");
+            bool quayLai = false;
+            while (!quayLai)
+            {
+                HienThiMenuQuanLyThongTin();
+                Console.Write("Chọn chức năng: ");
+                string luaChon = Console.ReadLine();
+                Console.WriteLine();
 
-            Console.WriteLine("Thêm / sửa / xóa thí sinh:");
-            Console.WriteLine("  1. Thêm thí sinh khối A");
-            Console.WriteLine("  2. Thêm thí sinh khối B");
-            Console.WriteLine("  3. Thêm thí sinh khối C");
-            Console.WriteLine(" 10. Cập nhật thông tin thí sinh");
-            Console.WriteLine(" 11. Xóa thí sinh");
+                switch (luaChon)
+                {
+                    case "1":
+                        ql.InDanhSach();
+                        break;
+                    case "2":
+                        ql.TaiTuTxt(filePath);
+                        break;
+                    case "3":
+                        ql.LuuVaoTxt(filePath);
+                        break;
+                    case "0":
+                        quayLai = true;
+                        break;
+                    default:
+                        Console.WriteLine("Lựa chọn không hợp lệ. Vui lòng chọn từ 0 đến 3.");
+                        break;
+                }
 
+                Console.WriteLine();
+            }
+        }
+
+        private static void XuLyMenuTimKiemThongKe(QuanLyThiSinh ql)
+        {
+            bool quayLai = false;
+            while (!quayLai)
+            {
+                HienThiMenuTimKiemThongKe();
+                Console.Write("Chọn chức năng: ");
+                string luaChon = Console.ReadLine();
+                Console.WriteLine();
+
+                switch (luaChon)
+                {
+                    case "1":
+                        ql.ThongKeTheoKhoi();
+                        break;
+                    case "2":
+                        ql.TimThuKhoa();
+                        break;
+                    case "3":
+                        TimKiemTheoHoTen(ql);
+                        break;
+                    case "4":
+                        TimKiemTheoSoBaoDanh(ql);
+                        break;
+                    case "0":
+                        quayLai = true;
+                        break;
+                    default:
+                        Console.WriteLine("Lựa chọn không hợp lệ. Vui lòng chọn từ 0 đến 4.");
+                        break;
+                }
+
+                Console.WriteLine();
+            }
+        }
+
+        private static void HienThiMenuThemSuaXoa()
+        {
+            Console.WriteLine("===== THÊM / SỬA / XÓA THÍ SINH =====");
+            Console.WriteLine("1. Thêm thí sinh khối A");
+            Console.WriteLine("2. Thêm thí sinh khối B");
+            Console.WriteLine("3. Thêm thí sinh khối C");
+            Console.WriteLine("4. Cập nhật thông tin thí sinh");
+            Console.WriteLine("5. Xóa thí sinh");
             Console.WriteLine();
-            Console.WriteLine("Quản lý thông tin thí sinh:");
-            Console.WriteLine("  4. Hiển thị danh sách thí sinh");
-            Console.WriteLine("  8. Tải dữ liệu từ tệp");
-            Console.WriteLine("  9. Lưu dữ liệu ra tệp");
+            Console.WriteLine("0. Quay lại");
+        }
 
+        private static void HienThiMenuQuanLyThongTin()
+        {
+            Console.WriteLine("===== QUẢN LÝ THÔNG TIN THÍ SINH =====");
+            Console.WriteLine("1. Hiển thị danh sách thí sinh");
+            Console.WriteLine("2. Tải dữ liệu từ tệp");
+            Console.WriteLine("3. Lưu dữ liệu ra tệp");
             Console.WriteLine();
-            Console.WriteLine("Tìm kiếm và thống kê:");
-            Console.WriteLine("  5. Thống kê số lượng theo khối");
-            Console.WriteLine("  6. Tìm thủ khoa từng khối");
-            Console.WriteLine("  7. Tìm kiếm thí sinh theo họ tên");
-            Console.WriteLine(" 12. Tìm kiếm thí sinh theo số báo danh");
+            Console.WriteLine("0. Quay lại");
+        }
 
+        private static void HienThiMenuTimKiemThongKe()
+        {
+            Console.WriteLine("===== TÌM KIẾM VÀ THỐNG KÊ =====");
+            Console.WriteLine("1. Thống kê số lượng theo khối");
+            Console.WriteLine("2. Tìm thủ khoa từng khối");
+            Console.WriteLine("3. Tìm kiếm thí sinh theo họ tên");
+            Console.WriteLine("4. Tìm kiếm thí sinh theo số báo danh");
             Console.WriteLine();
-            Console.WriteLine("0. Thoát");
+            Console.WriteLine("0. Quay lại");
         }
 
         private static void ThemThiSinhKhoiA(QuanLyThiSinh ql, string filePath)
