@@ -55,9 +55,9 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             return danhSachThiSinh.FirstOrDefault(ts => ts.SoBD == soBD);
         }
 
-        public bool CapNhatThiSinh(string soBD, ThongTinThiSinh thongTinCapNhat)
+        public bool CapNhatThiSinh(string soBD, Action<ThongTinThiSinh> capNhatAction)
         {
-            if (string.IsNullOrWhiteSpace(soBD) || thongTinCapNhat == null)
+            if (string.IsNullOrWhiteSpace(soBD) || capNhatAction == null)
             {
                 return false;
             }
@@ -68,57 +68,26 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                 return false;
             }
 
-            if (!string.Equals(thiSinhHienTai.SoBD, thongTinCapNhat.SoBD, StringComparison.Ordinal))
+            var soBDTruocKhiCapNhat = thiSinhHienTai.SoBD;
+
+            capNhatAction(thiSinhHienTai);
+
+            if (string.IsNullOrWhiteSpace(thiSinhHienTai.SoBD))
             {
-                var thiSinhTrung = TimTheoSoBD(thongTinCapNhat.SoBD);
-                if (thiSinhTrung != null && !ReferenceEquals(thiSinhTrung, thiSinhHienTai))
-                {
-                    return false;
-                }
-            }
-
-            if (thiSinhHienTai is ThiSinhKhoiA thiSinhKhoiA)
-            {
-                if (!(thongTinCapNhat is ThiSinhKhoiA capNhatKhoiA))
-                {
-                    return false;
-                }
-
-                CapNhatThongTinCoBan(thiSinhKhoiA, capNhatKhoiA);
-                CapNhatDiemKhoiA(thiSinhKhoiA, capNhatKhoiA);
-                return true;
-            }
-
-            if (thiSinhHienTai is ThiSinhKhoiB thiSinhKhoiB)
-            {
-                if (!(thongTinCapNhat is ThiSinhKhoiB capNhatKhoiB))
-                {
-                    return false;
-                }
-
-                CapNhatThongTinCoBan(thiSinhKhoiB, capNhatKhoiB);
-                CapNhatDiemKhoiB(thiSinhKhoiB, capNhatKhoiB);
-                return true;
-            }
-
-            if (thiSinhHienTai is ThiSinhKhoiC thiSinhKhoiC)
-            {
-                if (!(thongTinCapNhat is ThiSinhKhoiC capNhatKhoiC))
-                {
-                    return false;
-                }
-
-                CapNhatThongTinCoBan(thiSinhKhoiC, capNhatKhoiC);
-                CapNhatDiemKhoiC(thiSinhKhoiC, capNhatKhoiC);
-                return true;
-            }
-
-            if (thongTinCapNhat.GetType() != thiSinhHienTai.GetType())
-            {
+                thiSinhHienTai.SoBD = soBDTruocKhiCapNhat;
                 return false;
             }
 
-            CapNhatThongTinCoBan(thiSinhHienTai, thongTinCapNhat);
+            if (!string.Equals(soBDTruocKhiCapNhat, thiSinhHienTai.SoBD, StringComparison.Ordinal))
+            {
+                var thiSinhTrung = TimTheoSoBD(thiSinhHienTai.SoBD);
+                if (thiSinhTrung != null && !ReferenceEquals(thiSinhTrung, thiSinhHienTai))
+                {
+                    thiSinhHienTai.SoBD = soBDTruocKhiCapNhat;
+                    return false;
+                }
+            }
+
             return true;
         }
 
@@ -458,45 +427,6 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
         private static string NormalizeText(string value)
         {
             return string.IsNullOrEmpty(value) ? string.Empty : value.Replace("|", "/");
-        }
-
-        private static void CapNhatThongTinCoBan(ThongTinThiSinh dich, ThongTinThiSinh nguon)
-        {
-            dich.SoBD = nguon.SoBD;
-            dich.HoTen = nguon.HoTen;
-            dich.NgaySinh = nguon.NgaySinh;
-            dich.DanToc = nguon.DanToc;
-            dich.TonGiao = nguon.TonGiao;
-            dich.GioiTinh = nguon.GioiTinh;
-            dich.NoiSinh = nguon.NoiSinh;
-            dich.DiaChi = nguon.DiaChi;
-            dich.SoCanCuoc = nguon.SoCanCuoc;
-            dich.SoDienThoai = nguon.SoDienThoai;
-            dich.Email = nguon.Email;
-            dich.KhuVuc = nguon.KhuVuc;
-            dich.DoiTuongUuTien = nguon.DoiTuongUuTien;
-            dich.HoiDongThi = nguon.HoiDongThi;
-        }
-
-        private static void CapNhatDiemKhoiA(ThiSinhKhoiA dich, ThiSinhKhoiA nguon)
-        {
-            dich.Diem.Toan = nguon.Diem.Toan;
-            dich.Diem.Ly = nguon.Diem.Ly;
-            dich.Diem.Hoa = nguon.Diem.Hoa;
-        }
-
-        private static void CapNhatDiemKhoiB(ThiSinhKhoiB dich, ThiSinhKhoiB nguon)
-        {
-            dich.Diem.Toan = nguon.Diem.Toan;
-            dich.Diem.Hoa = nguon.Diem.Hoa;
-            dich.Diem.Sinh = nguon.Diem.Sinh;
-        }
-
-        private static void CapNhatDiemKhoiC(ThiSinhKhoiC dich, ThiSinhKhoiC nguon)
-        {
-            dich.Diem.Van = nguon.Diem.Van;
-            dich.Diem.Su = nguon.Diem.Su;
-            dich.Diem.Dia = nguon.Diem.Dia;
         }
 
         private static NgayThangNam DocNgaySinhTuChuoi(string giaTri)
