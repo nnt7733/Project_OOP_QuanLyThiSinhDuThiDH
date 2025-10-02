@@ -52,6 +52,9 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                     case "7":
                         TimKiemTheoHoTen(ql);
                         break;
+                    case "12":
+                        TimKiemTheoSoBaoDanh(ql);
+                        break;
                     case "8":
                         ql.TaiTuTxt(filePath);
                         break;
@@ -68,7 +71,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                         thoat = true;
                         break;
                     default:
-                        Console.WriteLine("Lựa chọn không hợp lệ. Vui lòng thử lại.");
+                        Console.WriteLine("Lựa chọn không hợp lệ. Vui lòng chọn từ 0 đến 12.");
                         break;
                 }
 
@@ -99,6 +102,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             Console.WriteLine("  5. Thống kê số lượng theo khối");
             Console.WriteLine("  6. Tìm thủ khoa từng khối");
             Console.WriteLine("  7. Tìm kiếm thí sinh theo họ tên");
+            Console.WriteLine(" 12. Tìm kiếm thí sinh theo số báo danh");
 
             Console.WriteLine();
             Console.WriteLine("0. Thoát");
@@ -188,6 +192,30 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                 ts.InThongTin();
                 Console.WriteLine();
             }
+        }
+
+        private static void TimKiemTheoSoBaoDanh(QuanLyThiSinh ql)
+        {
+            Console.Write("Nhập số báo danh cần tìm kiếm: ");
+            string soBaoDanh = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(soBaoDanh))
+            {
+                Console.WriteLine("Số báo danh không hợp lệ.");
+                return;
+            }
+
+            var thiSinh = ql.TimTheoSoBD(soBaoDanh);
+
+            if (thiSinh == null)
+            {
+                Console.WriteLine("Không tìm thấy thí sinh với số báo danh này.");
+                return;
+            }
+
+            Console.WriteLine("===== KẾT QUẢ TÌM KIẾM =====");
+            thiSinh.InThongTin();
+            Console.WriteLine();
         }
 
         private static void CapNhatThongTinThiSinh(QuanLyThiSinh ql, string filePath)
