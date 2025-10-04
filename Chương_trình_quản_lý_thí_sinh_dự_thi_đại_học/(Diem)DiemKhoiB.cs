@@ -8,15 +8,15 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
         public double Hoa { get; set; }
         public double Sinh { get; set; }
 
-        protected override MonHocDescriptor[] MonHoc
+        protected override MoTaMonHoc[] DanhSachMonHoc
         {
             get
             {
-                return new MonHocDescriptor[]
+                return new MoTaMonHoc[]
                 {
-                    new MonHocDescriptor("Toán", () => Toan, value => Toan = value),
-                    new MonHocDescriptor("Hóa", () => Hoa, value => Hoa = value),
-                    new MonHocDescriptor("Sinh", () => Sinh, value => Sinh = value),
+                    new MoTaMonHoc("Toán", () => Toan, value => Toan = value),
+                    new MoTaMonHoc("Hóa", () => Hoa, value => Hoa = value),
+                    new MoTaMonHoc("Sinh", () => Sinh, value => Sinh = value),
                 };
             }
         }

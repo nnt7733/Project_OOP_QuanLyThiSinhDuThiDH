@@ -10,7 +10,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
 
         public NgayThangNam(int ngay, int thang, int nam)
         {
-            if (!IsValid(ngay, thang, nam))
+            if (!LaHopLe(ngay, thang, nam))
             {
                 throw new ArgumentOutOfRangeException(nameof(ngay), "Ngày sinh không hợp lệ.");
             }
@@ -25,7 +25,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             return $"{Ngay:D2}/{Thang:D2}/{Nam:D4}";
         }
 
-        private static bool IsValid(int ngay, int thang, int nam)
+        private static bool LaHopLe(int ngay, int thang, int nam)
         {
             if (nam < DateTime.MinValue.Year || nam > DateTime.MaxValue.Year)
             {
