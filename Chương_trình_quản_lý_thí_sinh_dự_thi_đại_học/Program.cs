@@ -206,40 +206,40 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
 
         private static void ThemThiSinhKhoiA(QuanLyThiSinh ql, string filePath)
         {
-            ThiSinhKhoiA thiSinh = NhapThiSinhKhoiA();
+            ThiSinhKhoiA thiSinh = NhapThiSinhKhoiA(ql);
             ThemThiSinh(ql, filePath, thiSinh);
         }
 
         private static void ThemThiSinhKhoiB(QuanLyThiSinh ql, string filePath)
         {
-            ThiSinhKhoiB thiSinh = NhapThiSinhKhoiB();
+            ThiSinhKhoiB thiSinh = NhapThiSinhKhoiB(ql);
             ThemThiSinh(ql, filePath, thiSinh);
         }
 
         private static void ThemThiSinhKhoiC(QuanLyThiSinh ql, string filePath)
         {
-            ThiSinhKhoiC thiSinh = NhapThiSinhKhoiC();
+            ThiSinhKhoiC thiSinh = NhapThiSinhKhoiC(ql);
             ThemThiSinh(ql, filePath, thiSinh);
         }
 
-        private static ThiSinhKhoiA NhapThiSinhKhoiA()
+        private static ThiSinhKhoiA NhapThiSinhKhoiA(QuanLyThiSinh ql)
         {
             ThiSinhKhoiA thiSinh = new ThiSinhKhoiA();
-            thiSinh.Nhap();
+            thiSinh.Nhap(soBaoDanh => ql != null && ql.TimTheoSoBD(soBaoDanh) != null);
             return thiSinh;
         }
 
-        private static ThiSinhKhoiB NhapThiSinhKhoiB()
+        private static ThiSinhKhoiB NhapThiSinhKhoiB(QuanLyThiSinh ql)
         {
             ThiSinhKhoiB thiSinh = new ThiSinhKhoiB();
-            thiSinh.Nhap();
+            thiSinh.Nhap(soBaoDanh => ql != null && ql.TimTheoSoBD(soBaoDanh) != null);
             return thiSinh;
         }
 
-        private static ThiSinhKhoiC NhapThiSinhKhoiC()
+        private static ThiSinhKhoiC NhapThiSinhKhoiC(QuanLyThiSinh ql)
         {
             ThiSinhKhoiC thiSinh = new ThiSinhKhoiC();
-            thiSinh.Nhap();
+            thiSinh.Nhap(soBaoDanh => ql != null && ql.TimTheoSoBD(soBaoDanh) != null);
             return thiSinh;
         }
 

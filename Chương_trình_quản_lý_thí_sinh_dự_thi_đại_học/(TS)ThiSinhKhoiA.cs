@@ -8,10 +8,10 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
         {
             Diem = new DiemKhoiA();
         }
-        public void Nhap()
+        public void Nhap(Func<string, bool> kiemTraSoBaoDanhTonTai = null)
         {
             Console.WriteLine("=== Nhập thông tin thí sinh khối A ===");
-            base.NhapThongTin();
+            base.NhapThongTin(kiemTraSoBaoDanhTonTai);
             Diem.NhapDiem();
         }
         public double TinhDiem()
