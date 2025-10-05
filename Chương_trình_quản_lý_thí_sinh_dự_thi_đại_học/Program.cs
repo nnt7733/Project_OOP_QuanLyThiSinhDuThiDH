@@ -251,6 +251,8 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                 return;
             }
 
+            DamBaoSoBaoDanhHopLeKhiThem(ql, thiSinh);
+
             string khoi = thiSinh switch
             {
                 ThiSinhKhoiA _ => "A",
@@ -259,15 +261,70 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
                 _ => string.Empty
             };
 
-            if (!ql.ThemThiSinh(thiSinh))
+            while (!ql.ThemThiSinh(thiSinh))
             {
                 Console.WriteLine($"Số báo danh đã tồn tại, không thể thêm thí sinh khối {khoi}.");
-                return;
+                thiSinh.SoBD = NhapSoBaoDanhKhongTrung(ql, "Nhập số báo danh khác: ");
+                khoi = thiSinh switch
+                {
+                    ThiSinhKhoiA _ => "A",
+                    ThiSinhKhoiB _ => "B",
+                    ThiSinhKhoiC _ => "C",
+                    _ => string.Empty
+                };
             }
 
             Console.WriteLine($"Đã thêm thí sinh khối {khoi} thành công.");
             ql.LuuVaoTxt(filePath);
             Console.WriteLine("Dữ liệu đã được lưu vào tệp.");
+        }
+
+        private static void DamBaoSoBaoDanhHopLeKhiThem(QuanLyThiSinh ql, ThongTinThiSinh thiSinh)
+        {
+            if (ql == null || thiSinh == null)
+            {
+                return;
+            }
+
+            string soBaoDanh = thiSinh.SoBD?.Trim();
+
+            if (string.IsNullOrWhiteSpace(soBaoDanh))
+            {
+                Console.WriteLine("Số báo danh không được để trống.");
+                soBaoDanh = NhapSoBaoDanhKhongTrung(ql, "Nhập số báo danh: ");
+            }
+            else if (ql.TimTheoSoBD(soBaoDanh) != null)
+            {
+                Console.WriteLine("Số báo danh đã tồn tại. Vui lòng nhập lại.");
+                soBaoDanh = NhapSoBaoDanhKhongTrung(ql, "Nhập số báo danh khác: ");
+            }
+
+            thiSinh.SoBD = soBaoDanh;
+        }
+
+        private static string NhapSoBaoDanhKhongTrung(QuanLyThiSinh ql, string thongDiep)
+        {
+            while (true)
+            {
+                Console.Write(thongDiep);
+                string soBaoDanh = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(soBaoDanh))
+                {
+                    Console.WriteLine("Số báo danh không được để trống.");
+                    continue;
+                }
+
+                soBaoDanh = soBaoDanh.Trim();
+
+                if (ql != null && ql.TimTheoSoBD(soBaoDanh) != null)
+                {
+                    Console.WriteLine("Số báo danh đã tồn tại. Vui lòng nhập lại.");
+                    continue;
+                }
+
+                return soBaoDanh;
+            }
         }
 
         private static void TimKiemTheoHoTen(QuanLyThiSinh ql)
