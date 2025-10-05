@@ -57,9 +57,9 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             HoiDongThi = hoiDongThi;
         }
 
-        public virtual void NhapThongTin()
+        public virtual void NhapThongTin(Func<string, bool> kiemTraSoBaoDanhTonTai = null)
         {
-            SoBD = NhapChuoiKhongRong("Nhập số báo danh: ");
+            SoBD = NhapSoBaoDanhHopLe(kiemTraSoBaoDanhTonTai);
             HoTen = NhapChuoiKhongRong("Nhập họ và tên: ");
 
             NgaySinh = NhapNgaySinh();
@@ -165,6 +165,22 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             } while (string.IsNullOrWhiteSpace(ketQua));
 
             return ketQua.Trim();
+        }
+
+        private static string NhapSoBaoDanhHopLe(Func<string, bool> kiemTraSoBaoDanhTonTai)
+        {
+            while (true)
+            {
+                var soBaoDanh = NhapChuoiKhongRong("Nhập số báo danh: ");
+
+                if (kiemTraSoBaoDanhTonTai != null && kiemTraSoBaoDanhTonTai(soBaoDanh))
+                {
+                    Console.WriteLine("Số báo danh đã tồn tại. Vui lòng nhập lại.");
+                    continue;
+                }
+
+                return soBaoDanh;
+            }
         }
 
         private static NgayThangNam NhapNgaySinh()
