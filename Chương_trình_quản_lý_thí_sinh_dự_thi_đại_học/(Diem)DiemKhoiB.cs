@@ -8,7 +8,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
         public double Hoa { get; set; }
         public double Sinh { get; set; }
 
-        protected override MoTaMonHoc[] DanhSachMonHoc
+        public override MoTaMonHoc[] DanhSachMonHoc
         {
             get
             {

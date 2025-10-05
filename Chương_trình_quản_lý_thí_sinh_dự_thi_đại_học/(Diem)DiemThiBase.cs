@@ -4,7 +4,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
 {
     public abstract class DiemThiBase : IDiemThi
     {
-        protected class MoTaMonHoc
+        public class MoTaMonHoc
         {
             public MoTaMonHoc(string tenMon, Func<double> layGiaTri, Action<double> ganGiaTri)
             {
@@ -18,7 +18,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             public Action<double> GanGiaTri { get; }
         }
 
-        protected abstract MoTaMonHoc[] DanhSachMonHoc { get; }
+        public abstract MoTaMonHoc[] DanhSachMonHoc { get; }
 
         public void NhapDiem()
         {
@@ -36,7 +36,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             Console.WriteLine(thongTin);
         }
 
-        protected static double NhapDiemMon(string tenMon)
+        public static double NhapDiemMon(string tenMon)
         {
             double diem;
             Console.Write($"Nhập điểm {tenMon}: ");

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
 {
-    internal class Program
+    public static class Program
     {
         static void Main()
         {
