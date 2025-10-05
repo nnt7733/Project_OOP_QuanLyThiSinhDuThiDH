@@ -21,11 +21,11 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
         public int DoiTuongUuTien { get; set; }
         public string HoiDongThi { get; set; }
 
-        protected ThongTinThiSinh()
+        public ThongTinThiSinh()
         {
         }
 
-        protected ThongTinThiSinh(
+        public ThongTinThiSinh(
             string soBD,
             string hoTen,
             NgayThangNam ngaySinh,
@@ -99,7 +99,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             Console.WriteLine("====================================");
         }
 
-        protected double TinhDiemCongKhuVuc()
+        public double TinhDiemCongKhuVuc()
         {
             switch (KhuVuc)
             {
@@ -114,7 +114,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             }
         }
 
-        protected double TinhDiemCongUuTien()
+        public double TinhDiemCongUuTien()
         {
             switch (DoiTuongUuTien)
             {
@@ -127,7 +127,7 @@ namespace Chương_trình_quản_lý_thí_sinh_dự_thi_đại_học
             }
         }
 
-        protected double TinhTongDiemUuTien(double tongDiemBaMon)
+        public double TinhTongDiemUuTien(double tongDiemBaMon)
         {
             var diemUuTienCoBan = TinhDiemCongKhuVuc() + TinhDiemCongUuTien();
             if (diemUuTienCoBan <= 0)
